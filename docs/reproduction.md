@@ -9,9 +9,15 @@ four strategies (14,320 rows); control contains GPT-5.4 and Gemma across four
 strategies (5,600 rows). Generated summaries are not committed.
 
 Independently rerunning evaluation requires Java v2 tasks and archived run/evidence
-bundles. Public archive URLs and checksums are pending in DATA_AVAILABILITY.md.
+bundles. See [data availability](../DATA_AVAILABILITY.md) for bundle filenames,
+checksums, licensing and source exclusions. Ten tasks retain their historical
+records but have production source withheld; a fresh execution rerun of those
+tasks requires separately authorized source.
 The compact profiles preserve recorded scores, not the full source and mutation
-evidence required to verify those scores independently.
+evidence required to verify those scores independently. The mutation bundles
+contain the separate aligned-zero assertion rerun, not historical PIT or
+extreme-condition/CFA evidence. They do not replace the historical compact
+profiles or silently update the paper's scores.
 
 Final analysis uses the `pit-mutation-v11c-object-observability-broad` lineage.
 The assertion collector's internal version is `custom_assertion_mutation_v9`;

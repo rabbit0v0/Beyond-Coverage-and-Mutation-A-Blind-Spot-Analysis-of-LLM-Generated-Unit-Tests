@@ -25,8 +25,7 @@ The analyzer's `--saved-profiles` mode regenerates the report tables without
 source workdirs, model calls, Maven, or mutation execution. Follow
 [the reproduction guide](../../../docs/reproduction.md) from the repository root.
 Rechecking the original classifications and mutations requires the separately
-archived source, tests, logs, and mutant evidence. The
-[research artifact release](https://github.com/rabbit0v0/Beyond-Coverage-and-Mutation-A-Blind-Spot-Analysis-of-LLM-Generated-Unit-Tests/releases/tag/v1.0.0-obligbench)
+archived source, tests, logs, and mutant evidence. The accompanying artifact distribution
 provides benchmark source, evaluated tests and a separate aligned-zero
 assertion-mutation rerun. These compact profiles retain the historical scores;
 they have not been replaced with aligned-rerun results. Historical PIT and

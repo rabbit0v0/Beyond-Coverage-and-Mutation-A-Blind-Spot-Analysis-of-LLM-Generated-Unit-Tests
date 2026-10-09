@@ -63,6 +63,20 @@ current paper results using stable LaTeX table/figure labels.
 2. Scrub or remove any reported local absolute paths.
 3. Confirm third-party benchmark and tool licenses.
 4. Confirm that MIT covers only original project material and retain required upstream notices for third-party source.
-5. Add `CITATION.cff` with the final title, authors, and DOI once known.
+5. Add author-identifying citation metadata only after anonymous review ends.
 6. Stage only intentional files with `git add`.
 7. Re-run the audit on staged files before pushing.
+
+## Anonymous Review
+
+Use the anonymous repository and anonymous artifact downloads for reviewer
+access. Do not link them back to an author-owned repository, release, personal
+website or institutional service. Inspect rendered links and download pages,
+not just the source files. Commit metadata and archive metadata also require
+checking if they are exposed by the chosen host.
+
+Keep author names, personal contact details, affiliations, acknowledgments and
+author-identifying citation metadata out of the review copy. Preserve required
+upstream licenses and attribution: third-party authors are not study authors.
+Publish new review-copy commits with a neutral identity; do not assume that a
+new commit removes author information from older history or cached pages.

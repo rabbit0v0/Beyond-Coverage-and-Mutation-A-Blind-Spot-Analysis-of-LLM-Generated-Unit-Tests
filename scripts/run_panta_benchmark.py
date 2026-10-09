@@ -293,7 +293,7 @@ def main() -> int:
         help="Use PANTA's default LiteLLM backend, OpenAI SDK directly, or direct Gemini generateContent REST.",
     )
     parser.add_argument("--api-base", default=os.environ.get("PANTA_API_BASE") or os.environ.get("OPENAI_API_BASE"))
-    parser.add_argument("--api-key-env", default="AALTO_API_KEY")
+    parser.add_argument("--api-key-env", default="LLM_API_KEY")
     parser.add_argument("--service-tier", default=os.environ.get("PANTA_SERVICE_TIER") or os.environ.get("OPENAI_SERVICE_TIER"))
     parser.add_argument("--prompt-type", choices=["baseline", "control", "coverage"], default="control")
     parser.add_argument("--maximum-iterations", type=int, default=1)

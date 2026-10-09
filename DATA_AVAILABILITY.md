@@ -17,15 +17,15 @@ treatment/control comparisons. Treatment has four models and four strategies
 Generated summaries are not tracked. Inventory hashes identify the source
 profiles and released files.
 
-The [research artifact release](https://github.com/rabbit0v0/Beyond-Coverage-and-Mutation-A-Blind-Spot-Analysis-of-LLM-Generated-Unit-Tests/releases/tag/v1.0.0-obligbench)
-provides the following ZIPs and `SHA256SUMS`. After downloading all five ZIPs
+The accompanying artifact distribution provides the following ZIPs and
+`SHA256SUMS`. After downloading all five ZIPs
 and the checksum file into one directory, run `shasum -a 256 -c SHA256SUMS`.
 The Java example runs independently. A DOI has not been assigned.
 
 | Bundle | Required contents | Public location |
 | --- | --- | --- |
 | Final numeric profiles | Compact final treatment/control analysis and inventory | `analysis/final-mixed-runs/release/` in Git |
-| ObligBench Java v2 | 1,585 source projects; all 1,595 task records, manifests, provenance and licenses | `ObligBench.zip` in the release |
+| ObligBench Java v2 | 1,585 source projects; all 1,595 task records, manifests, provenance and licenses | `ObligBench.zip` |
 | Evaluated treatment tests | 14,320 records; generated tests, helpers, available production sources and build files | `evaluated-tests-treatment.zip` |
 | Evaluated control tests | 5,600 records; generated tests, helpers, available production sources and build files | `evaluated-tests-control.zip` |
 | Aligned treatment assertion evidence | 14,320 mutation records, referenced logs, tests and collector snapshots | `mutation-evidence-treatment-aligned-zero.zip` |

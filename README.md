@@ -41,8 +41,8 @@ source provenance and license, complexity measures, and group membership:
 
 Only this release's manifests and benchmark notes are included in Git. Task
 projects are distributed separately and must be restored under
-`benchmarks/java-complexity-v2/tasks/` for benchmark runs. Download `ObligBench.zip`
-and `SHA256SUMS` from the [research artifact release](https://github.com/rabbit0v0/Beyond-Coverage-and-Mutation-A-Blind-Spot-Analysis-of-LLM-Generated-Unit-Tests/releases/tag/v1.0.0-obligbench);
+`benchmarks/java-complexity-v2/tasks/` for benchmark runs. The accompanying
+artifact bundles provide `ObligBench.zip` and `SHA256SUMS`;
 see [data availability](DATA_AVAILABILITY.md)
 and [benchmark notes](benchmarks/java-complexity-v2/README.md).
 The quickstart below uses the included example and requires no benchmark download.
@@ -298,7 +298,7 @@ scripts, and older diagnostic reports are also excluded. Only Java v2 is support
 ## Data Availability, Citation, and License
 
 [Data availability](DATA_AVAILABILITY.md) describes the benchmark and evidence
-bundles and reproduction limits. The [research artifact release](https://github.com/rabbit0v0/Beyond-Coverage-and-Mutation-A-Blind-Spot-Analysis-of-LLM-Generated-Unit-Tests/releases/tag/v1.0.0-obligbench)
+bundles and reproduction limits. The accompanying artifact distribution
 provides the benchmark, evaluated tests, aligned assertion-mutation evidence,
 licensing notices and checksums. Historical PIT and extreme-condition/CFA
 evidence are not included in these mutation ZIPs. The example runs independently.
