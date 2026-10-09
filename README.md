@@ -24,13 +24,13 @@ focal method. The current Java v2 release has two non-overlapping groups:
 | Control | 700 | Easy methods used as the comparison group |
 | Total | 1,595 | Combined treatment and control release |
 
-The study and full manifests include all 1,595 tasks. The public source bundle
-contains 1,585 task projects; source for five treatment and five control tasks is
-withheld because redistribution terms or required notices remain unresolved.
-Their task IDs, provenance, generated-test records and historical scores remain
-in the published study record. These are distribution exclusions, not changes
-to the experimental population or score denominators. See
-[source distribution](SOURCE_DISTRIBUTION.md) for reasons, task IDs and rerun limitations.
+To respect upstream licensing conditions, the public bundle includes production
+source for 1,585 of the 1,595 study tasks. Source for five treatment and five
+control tasks is excluded from distribution; their task IDs, provenance,
+generated-test records and historical results remain included. These are
+distribution exclusions, not changes to the experimental population or score
+denominators. Task-specific licensing reasons, task IDs and rerun limitations
+are documented in the [source-distribution notes](SOURCE_DISTRIBUTION.md).
 
 Each manifest records the target method's signature, relative project directory,
 source provenance and license, complexity measures, and group membership:
