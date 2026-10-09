@@ -55,6 +55,7 @@ external-tools/
 # Old exploratory material that is not part of the public artifact.
 archive/
 documentation/
+PUBLICATION_CHECKLIST.md
 
 # Publish only the compact canonical final-study profiles, not generated reports.
 !analysis/

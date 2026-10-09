@@ -306,5 +306,4 @@ evidence are not included in these mutation ZIPs. The example runs independently
 Original project material is licensed under [MIT](LICENSE). Third-party
 benchmark sources and other third-party content retain their upstream terms;
 see [third-party notices](THIRD_PARTY_NOTICES.md). The final paper citation has
-not yet been assigned. Release preparation is
-tracked in [PUBLICATION_CHECKLIST.md](PUBLICATION_CHECKLIST.md).
+not yet been assigned.
