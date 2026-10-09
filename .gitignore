@@ -56,6 +56,7 @@ external-tools/
 archive/
 documentation/
 PUBLICATION_CHECKLIST.md
+.github/workflows/
 prompts/java_structured_intent_plain_main.txt
 prompts/java_access_aware_plain_main.txt
 
