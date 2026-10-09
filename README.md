@@ -41,10 +41,11 @@ source provenance and license, complexity measures, and group membership:
 
 Only this release's manifests and benchmark notes are included in Git. Task
 projects are distributed separately and must be restored under
-`benchmarks/java-complexity-v2/tasks/` for benchmark runs. The accompanying
-artifact bundles provide `ObligBench.zip` and `SHA256SUMS`;
-see [data availability](DATA_AVAILABILITY.md)
-and [benchmark notes](benchmarks/java-complexity-v2/README.md).
+`benchmarks/java-complexity-v2/tasks/` for benchmark runs. The benchmark,
+evaluated tests and mutation evidence are provided as separate downloads. See
+[data availability](DATA_AVAILABILITY.md) for the bundle contents and reproduction
+requirements, and [benchmark notes](benchmarks/java-complexity-v2/README.md) for
+benchmark setup.
 The quickstart below uses the included example and requires no benchmark download.
 
 ## Quick Start: Evaluate Existing Tests
