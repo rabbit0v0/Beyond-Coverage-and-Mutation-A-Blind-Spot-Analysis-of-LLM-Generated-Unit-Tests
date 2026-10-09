@@ -1,9 +1,9 @@
 # Source Distribution
 
 ObligBench distributes production source for all 1,595 study tasks: 895 treatment
-and 700 control. The accompanying evaluated-test and mutation-evidence packages
-preserve the available source, tests and evidence used in the study. No task
-source is withheld under the current distribution policy.
+and 700 control. Accompanying packages provide evaluated tests and aligned
+assertion-mutation evidence. See [data availability](DATA_AVAILABILITY.md) for
+package contents and reproduction requirements.
 
 ## Upstream Licenses
 
@@ -29,20 +29,8 @@ original file or module terms take precedence where they differ.
 Release packages include `THIRD_PARTY_SOURCES.jsonl` and a consolidated
 `third-party-notices/` directory. The task mapping records repositories, revisions,
 source paths, dataset labels and collected source-specific license evidence.
-Preserved notices include custom conditions or ambiguous scope where found;
-their inclusion does not convert them into unrestricted permission. See
-[third-party notices](THIRD_PARTY_NOTICES.md) for the licensing scope and mapping.
-
-## Reproduction
-
-The benchmark contains all task projects. Evaluated-test packages preserve
-historical fixtures rather than replacing them with the current benchmark code.
-Files absent from historical runs and failed generations remain identified in
-the evaluation records. These historical gaps are not licensing exclusions.
-
-The mutation packages retain production snippets, mutant text and expression
-fields from the aligned assertion-mutation rerun. They do not contain historical
-PIT or extreme-condition/CFA evidence. Restoring source availability does not
-change recorded outcomes, scores or the study population. See
-[data availability](DATA_AVAILABILITY.md) for package contents and reproduction
-requirements.
+Use the mapping to locate the notices applicable to each task. The notices
+directory contains collected upstream license texts and attribution, including
+source-specific conditions. Keep these materials with redistributed source.
+Third-party content in evaluated tests and mutation evidence also retains its
+upstream terms; MIT applies only to our original material.

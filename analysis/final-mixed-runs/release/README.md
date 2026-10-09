@@ -1,7 +1,7 @@
 # Final Study Results
 
-Only the compact results from the `pit-mutation-v11c-object-observability-broad`
-analysis lineage are included in Git. Generated summaries are not included.
+These compact profiles contain the study's recorded numeric results from the
+`pit-mutation-v11c-object-observability-broad` analysis lineage.
 
 | Group | Models | Strategies per model | Tasks per configuration | Rows |
 | --- | ---: | ---: | ---: | ---: |
@@ -10,9 +10,7 @@ analysis lineage are included in Git. Generated summaries are not included.
 
 Treatment models are GPT-5.4, Gemma-4-31B, Gemini-3.6-flash, and Qwen3-Coder-30B.
 Control models are GPT-5.4 and Gemma-4-31B. Strategies are zero-shot,
-intention-planning, mutation-feedback, and Panta. The Gemini control run,
-duplicate model-only exports, older analysis versions, and previous summaries
-are excluded.
+intention-planning, mutation-feedback, and Panta.
 
 `treatment/blindspot_profiles.jsonl.gz` and `control/blindspot_profiles.jsonl.gz`
 contain one compact analyzed row per task/configuration. They retain recorded
@@ -33,12 +31,5 @@ extreme-condition/CFA evidence are not in those mutation ZIPs. See
 [data availability](../../../DATA_AVAILABILITY.md) for reproduction limits.
 
 `inventory.json` records configurations, row counts, source-profile hashes, and
-compressed release-profile hashes. Recreate the compact release from the full
-final profiles with:
-
-```bash
-python scripts/package_study_results.py --out-dir /tmp/final-study-release
-```
-
-The exporter validates that every configuration contains every task exactly
-once. It copies recorded scores and counts; it does not recompute them.
+compressed release-profile hashes. Each configuration contains every task
+exactly once. The profiles preserve recorded scores and counts.

@@ -81,7 +81,7 @@ override the Java executable; otherwise `JAVA_HOME` and `PATH` are used.
 Only executable tests are eligible for adequacy interpretation. Missing evidence,
 tooling failures, private targets, and inapplicable constructs are not uncovered
 obligations. Use item statuses and scorable denominators. Oracle Strength uses
-custom assertion evidence; legacy static oracle fields in the profile are
+custom assertion evidence; static oracle fields in the profile are
 diagnostics, not the paper's headline score.
 
 The summary contains seven sections: Execution Funnel, Failure Classification,

@@ -1,7 +1,8 @@
 # Java Evaluation Result Schema
 
 One JSONL row represents one focal method under one evaluation configuration.
-The external evaluator produces these fields; generation adapters add metadata.
+The table covers external evaluations and benchmark runs. Generation adapters
+add configuration metadata; separate collectors add optional PIT evidence.
 
 | Field | Meaning |
 | --- | --- |
@@ -32,9 +33,9 @@ consult status and obligation counts to distinguish missing and inapplicable evi
 
 CFA reports construct-specific scores. `if_else_if_condition_avg_item_score`
 covers condition obligations; the `extreme_condition_mutation` object retains
-all custom constructs. `branch_condition_strength_score` is a legacy reach
+all custom constructs. `branch_condition_strength_score` is a reach
 diagnostic, not the headline custom CFA score.
 
 For external evaluations, `metrics.json` is the public score interface. It uses
 the combined custom CFA collector score and primary return/exception Oracle
-Strength. Legacy reach fields are retained only as diagnostics.
+Strength. Reach fields are retained only as diagnostics.

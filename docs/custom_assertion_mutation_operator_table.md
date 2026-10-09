@@ -37,7 +37,7 @@ the same outcome policy as other mutants. They can be excluded from the primary
 denominator with `--degenerate-null-score exclude`.
 
 For sensitivity, each row also records an optimistic any-killed score and a
-strict all-killed score. Summaries report both pooled scores across all
+strict all-killed score. Collector summaries report both pooled scores across all
 obligations and macro scores over rows. They also report a pessimistic bound
 that counts `not_generated`, `out_of_scope`, and degenerate-null-excluded
 obligations as survived.
@@ -58,5 +58,5 @@ any tags such as `degenerate_null`. For argument alteration, it also records the
 altered argument index and replacement. `coverage_imprecise` marks line-coverage
 cases such as ternaries or chained calls where line coverage may over-report.
 Coverage is collected per generated suite, not unioned across suites. The
-summary reports per-operator counts and generation rates for
+collector summary reports per-operator counts and generation rates for
 pre-execution status, execution outcome, and tags.

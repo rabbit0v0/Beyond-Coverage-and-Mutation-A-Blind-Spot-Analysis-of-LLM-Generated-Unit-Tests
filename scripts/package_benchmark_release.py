@@ -125,7 +125,7 @@ def main() -> int:
             fixtures.append(path)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(args.out, "x", compression=zipfile.ZIP_DEFLATED) as archive:
-        for name in ("LICENSE", "THIRD_PARTY_NOTICES.md"):
+        for name in ("LICENSE",):
             data = (ROOT / name).read_bytes()
             archive.writestr(name, data)
             inventory[name] = hashlib.sha256(data).hexdigest()
@@ -164,7 +164,7 @@ def main() -> int:
         "archive_sha256": hashlib.sha256(args.out.read_bytes()).hexdigest(),
         "files": inventory,
         "original_material_license": "MIT",
-        "third_party_license_scope": "Upstream terms retained; see THIRD_PARTY_NOTICES.md",
+        "third_party_license_scope": "Upstream terms retained; see SOURCE_DISTRIBUTION.md",
         "upstream_notices_included": bool(notices),
         "redistribution_status": "Notice inclusion does not override upstream conditions or resolve recorded restrictions",
     }

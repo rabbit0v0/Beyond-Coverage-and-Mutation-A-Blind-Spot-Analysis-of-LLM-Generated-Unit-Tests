@@ -17,7 +17,7 @@ The compact profiles preserve recorded scores, not the full source and mutation
 evidence required to verify those scores independently. The mutation bundles
 contain the separate aligned-zero assertion rerun, not historical PIT or
 extreme-condition/CFA evidence. They do not replace the historical compact
-profiles or silently update the paper's scores.
+profiles used to regenerate the study's recorded tables.
 
 Final analysis uses the `pit-mutation-v11c-object-observability-broad` lineage.
 The assertion collector's internal version is `custom_assertion_mutation_v9`;
@@ -52,8 +52,10 @@ These derived files can remain local; the committed profiles are their inputs.
 
 ## Reanalyze Archived Evidence
 
-Restore source workdirs, coverage artifacts, and rows with resolvable paths.
-Use final assertion-enriched rows and custom-control-flow evidence:
+This workflow requires source workdirs, coverage artifacts, assertion-enriched
+result rows and custom-control-flow evidence with resolvable paths. The published
+assertion ZIPs alone do not supply those inputs. If you have the full collection
+artifacts, use:
 
 ```bash
 python scripts/analyze_java_blindspots.py restored/treatment/*.jsonl \
@@ -66,9 +68,8 @@ python scripts/compute_funnel_numbers.py \
 ```
 
 Repeat separately for control rows. Only executable rows enter adequacy averages;
-mutation scores use scorable obligations, not all generated tests. Exclude the
-noncanonical `java-v2-mixed-gemma-panta-control-full` run from restored inputs,
-retaining the canonical fix-enabled Panta run.
+mutation scores use scorable obligations, not all generated tests. Match the
+configuration membership recorded in the release inventory.
 
 ## Paper Result Map
 
@@ -83,11 +84,9 @@ retaining the canonical fix-enabled Panta run.
 
 The combined analyzer is `analyze_java_blindspots.py`. It produces `summary.md`
 and JSONL/CSV profiles containing the data needed for the paper's adequacy results.
-The exploratory adequacy plotter and its generated figures are not included in
-the public archive. Paper figure styling is separate from evaluation.
+Paper figure styling is separate from evaluation.
 Paper references use LaTeX labels because numeric figure and table numbers can
-change. The old manually transcribed RQ5 renderer is excluded from the public
-workflow. Export comparison data from analyzed evidence:
+change. Export comparison data from analyzed evidence:
 
 ```bash
 python scripts/compare_complexity.py \

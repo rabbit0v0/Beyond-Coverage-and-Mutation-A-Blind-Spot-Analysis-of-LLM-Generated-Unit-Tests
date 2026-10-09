@@ -3,10 +3,8 @@
 This repository contains the code, prompts, manifests, documentation, tests, and
 selected compact analysis artifacts needed to reproduce the study workflow.
 
-Full raw run outputs and bulky generated workspaces are not intended to be
-stored directly in Git. They should be archived separately in a durable research
-data repository or attached as release assets, then referenced here with a DOI
-or stable URL.
+Benchmark source, evaluated-test projects and mutation evidence are distributed
+as release ZIPs rather than stored directly in Git.
 
 ## Public Artifacts
 
@@ -46,27 +44,15 @@ they are not replaced with new implementations or passing tests. MIT covers our
 original material only. Please respect upstream licenses and retain their notices;
 see [source distribution](SOURCE_DISTRIBUTION.md) for Stack v2 licensing references.
 
-Prepare the current benchmark bundle locally with:
+## Restore the Artifacts
 
-```bash
-python scripts/package_benchmark_release.py \
-  --notices-dir /path/to/extracted-release/third-party-notices \
-  --out /tmp/obligbench-java-v2.zip
-```
+Extract `ObligBench.zip` into the repository root to restore source projects under
+`benchmarks/java-complexity-v2/tasks/`.
 
-The adjacent inventory records file SHA-256 hashes and the archive checksum.
-The packager automatically applies `benchmarks/java-complexity-v2/source-exclusions.json`
-to source files while retaining the full manifests and task metadata. Supply the
-consolidated notices directory with `--notices-dir` when preparing release ZIPs.
-The current source-exclusion registry is empty, so no study task is withheld.
-The notices directory is required and can be reused from an extracted release.
-Retain its upstream license texts and attribution when redistributing the bundle.
-Verify the published archive checksum before extraction into the repository root.
-Historical Java v1 and TypeScript benchmarks are excluded.
+Extract the evaluated-test ZIPs into separate directories. Their evaluation
+records identify the model, strategy, task and corresponding project files.
+Extract the mutation-evidence ZIPs separately and follow their accompanying
+README for record paths and verification.
 
-- `code`: this GitHub repository.
-- `raw-results`: full JSONL model and evaluation outputs.
-- `generated-workdirs`: optional generated test workspaces for auditability.
-- `benchmark-bundles`: optional benchmark task bundles, subject to upstream
-  license permissions.
-- `validation-evidence`: manual-validation sheets and codebooks.
+Follow [the reproduction guide](docs/reproduction.md) to regenerate numeric
+reports from the profiles included in Git.

@@ -68,6 +68,7 @@ scripts/scrub_infrastructure_failures.py
 scripts/scrub_public_paths.py
 scripts/java_v2_benchmark/split_mixed_v2_easy_control.py
 scripts/java_v2_benchmark/verify_stackv2_benchmark.py
+tests/test_benchmark_release.py
 
 # Publish only the compact canonical final-study profiles, not generated reports.
 !analysis/

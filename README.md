@@ -248,8 +248,8 @@ evaluation also requires the benchmark source, generated tests, and mutation
 evidence, see [data availability](DATA_AVAILABILITY.md) for their availability.
 [The reproduction guide](docs/reproduction.md) includes
 control, comparison, and funnel commands and explains rerunning the evaluation.
-Exact historical model outputs are reproduced from archived responses, not by
-assuming repeated model calls return identical tests.
+Use the archived evaluated tests to rerun the study's test suites. Repeated
+model calls are not guaranteed to generate identical tests.
 
 ## Repository Map
 
@@ -277,5 +277,5 @@ evidence are not included in these mutation ZIPs. The example runs independently
 
 Original project material is licensed under [MIT](LICENSE). Third-party
 benchmark sources and other third-party content retain their upstream terms,
-see [third-party notices](THIRD_PARTY_NOTICES.md). The final paper citation has
-not yet been assigned.
+see [source distribution and licensing](SOURCE_DISTRIBUTION.md). The final paper
+citation has not yet been assigned.
