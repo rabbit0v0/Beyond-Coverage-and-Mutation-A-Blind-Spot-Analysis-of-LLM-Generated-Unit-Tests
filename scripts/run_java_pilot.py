@@ -38,8 +38,6 @@ JACOCO_AGENT = Path(
 )
 PROMPTS = {
     "zero-shot": ROOT / "prompts" / "java_zero_shot_plain_main.txt",
-    "structured-intent": ROOT / "prompts" / "java_structured_intent_plain_main.txt",
-    "access-aware": ROOT / "prompts" / "java_access_aware_plain_main.txt",
 }
 MINIMAL_POM = """<project xmlns="http://maven.apache.org/POM/4.0.0">
   <modelVersion>4.0.0</modelVersion>
@@ -433,7 +431,7 @@ def main() -> int:
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--limit", type=int, default=3)
     parser.add_argument("--task-ids", default=None)
-    parser.add_argument("--prompt", choices=["zero-shot", "structured-intent", "access-aware", "both", "all"], default="both")
+    parser.add_argument("--prompt", choices=list(PROMPTS), default="zero-shot")
     parser.add_argument("--model", default=os.environ.get("PILOT_MODEL", "gpt-5.4-mini"))
     parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--max-output-tokens", type=int, default=4000)
@@ -456,12 +454,7 @@ def main() -> int:
     parser.add_argument("--resume", action="store_true", help="Skip rows already present in the result file.")
     args = parser.parse_args()
 
-    if args.prompt == "both":
-        prompt_names = ["zero-shot", "structured-intent"]
-    elif args.prompt == "all":
-        prompt_names = ["zero-shot", "structured-intent", "access-aware"]
-    else:
-        prompt_names = [args.prompt]
+    prompt_names = [args.prompt]
     tasks = select_tasks(args.manifest, args.limit, parse_task_ids(args.task_ids))
     if not tasks:
         raise SystemExit("No tasks selected.")

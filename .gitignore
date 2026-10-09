@@ -56,6 +56,8 @@ external-tools/
 archive/
 documentation/
 PUBLICATION_CHECKLIST.md
+prompts/java_structured_intent_plain_main.txt
+prompts/java_access_aware_plain_main.txt
 
 # Publish only the compact canonical final-study profiles, not generated reports.
 !analysis/
