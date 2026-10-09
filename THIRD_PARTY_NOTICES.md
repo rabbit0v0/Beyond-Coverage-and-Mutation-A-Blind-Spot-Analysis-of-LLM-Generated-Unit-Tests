@@ -17,11 +17,13 @@ original source terms take precedence. File-specific terms also take precedence
 over a repository's general license. A list of dataset labels is not interpreted
 as a choice of licenses for each extracted method.
 
-To respect upstream licensing conditions, production source for ten tasks is
-excluded from public packages under the release's source-distribution policy.
-Their task IDs and historical results remain in the study.
-See [source distribution](SOURCE_DISTRIBUTION.md) and the benchmark's
-`source-exclusions.json` for the task-specific decisions.
+All study task sources are included in the public packages. Please respect their
+applicable upstream terms, including source-specific conditions, attribution,
+and redistribution requirements. See [source distribution](SOURCE_DISTRIBUTION.md),
+[Stack v2 licensing information](https://huggingface.co/datasets/bigcode/the-stack-v2#licensing-information),
+and [Stack v2's license list](https://huggingface.co/datasets/bigcode/the-stack-v2/blob/main/license_stats.csv).
+The license list describes dataset labels; it is not a replacement for the
+applicable original license texts.
 
 Release bundles contain a consolidated `third-party-notices/` directory.
 Its `task-sources.jsonl` links task IDs to source notices, license documents,

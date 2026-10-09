@@ -3,7 +3,7 @@
 ## Overview
 
 Research code for evaluating behavioral blind spots in generated Java unit tests.
-The study uses ObligBench: 895 treatment functions and 700 easy control functions.
+The study uses ObligBench with 895 treatment functions and 700 easy control functions.
 The evaluation reports compilation and execution outcomes and classifies failed
 runs by failure type and stage. For tests that execute successfully, it measures
 Boundary-Value Adequacy (BVA), Control-Flow Adequacy (CFA), and Oracle Strength (OS).
@@ -24,13 +24,10 @@ focal method. The current Java v2 release has two non-overlapping groups:
 | Control | 700 | Easy methods used as the comparison group |
 | Total | 1,595 | Combined treatment and control release |
 
-To respect upstream licensing conditions, the public bundle includes production
-source for 1,585 of the 1,595 study tasks. Source for five treatment and five
-control tasks is excluded from distribution; their task IDs, provenance,
-generated-test records and historical results remain included. These are
-distribution exclusions, not changes to the experimental population or score
-denominators. Task-specific licensing reasons, task IDs and rerun limitations
-are documented in the [source-distribution notes](SOURCE_DISTRIBUTION.md).
+The public bundle includes production source for all 1,595 study tasks.
+Please respect each source's applicable upstream license and retain its required
+notices. See [source distribution](SOURCE_DISTRIBUTION.md) for licensing guidance
+and links to Stack v2's licensing materials.
 
 Each manifest records the target method's signature, relative project directory,
 source provenance and license, complexity measures, and group membership:
@@ -132,14 +129,14 @@ The following files are produced by `scripts/evaluate_tests.py` inside the
 directory selected by `--out-dir`. Relative paths are resolved from your shell's
 current working directory, not from the script's directory. Since these commands
 run from the repository root, the basic example writes to
-`<repository-root>/evaluation-output/example/`; the mutation example below
+`<repository-root>/evaluation-output/example/`, the mutation example below
 writes to `<repository-root>/evaluation-output/example-mutation/`.
 You can also supply an absolute output path.
 
 | Output file | What it tells you |
 | --- | --- |
 | `metrics.json` | Public scores and whether each metric was collected or applicable |
-| `results.jsonl` | Execution results; `compile_passed` and `execution_passed` should both be `true` |
+| `results.jsonl` | Execution results. `compile_passed` and `execution_passed` should both be `true` |
 | `summary.md` | Descriptive counts, scores, and breakdown tables |
 | `profile.json` | Item-level analysis evidence and diagnostic fields |
 | `compile.txt`, `execute.txt` | Tool output for investigating failures |
@@ -160,7 +157,7 @@ With `--mutation`, the evaluator runs our two mutation methods:
   whether the tests detect those changes, yielding Oracle Strength (OS).
 
 Both methods rerun the selected tests against mutated copies of the production
-code; your input project remains unchanged. The first command below only
+code, your input project remains unchanged. The first command below only
 downloads JaCoCo, which supplies execution-coverage evidence. The second command
 compiles and runs the example, computes BVA, and collects both mutation types.
 
@@ -182,7 +179,7 @@ running step 2 first.
 
 The different directory name keeps the optional basic run from step 2 intact.
 The evaluator requires an empty output directory to avoid overwriting an existing
-run; it does not require separate directories for different metrics. If you skip
+run, it does not require separate directories for different metrics. If you skip
 step 2, you can use `--out-dir evaluation-output/example` here instead, provided
 that directory is empty or does not yet exist.
 
@@ -193,59 +190,36 @@ See [the example notes](examples/java-tests/README.md) for more detail.
 
 ## Evaluate Your Own Tests
 
-Our evaluation is **method-based**, matching the study's experimental design.
-Each ObligBench task has one designated production method, extracted from a
-Stack v2 Java source file and packaged with the supporting code needed to run it.
-Adequacy is measured against that method's inputs and behavioral obligations.
+After completing the quickstart setup (including JaCoCo), adapt the command below
+to your project. Evaluation is **method-based**: `--signature` is the target
+production method's declaration without its body, `--test-class` is the fully
+qualified JUnit test class to execute. See [the evaluation guide](docs/evaluating_tests.md#supported-input)
+for the required project layout and limitations.
 
-Each run evaluates the selected test class against one production method,
-identified by `--signature`.
-
-When evaluating your own tests, supply the target method's declaration through
-`--signature`, for example `--signature 'public static int clamp(int value)'`.
-Include the method's modifiers, return type, name, and parameters, without its
-body. The signature tells the analyzer which production method to evaluate.
-`--test-class` separately identifies the JUnit class whose tests should run.
-
-For benchmark runs, each task's signature and project location are already stored
-in the manifest. The benchmark runners read them automatically, so you do not
-need to enter a signature manually for every task.
-
-The supported input is an isolated Maven project containing
-`src/main/java/benchmark/Subject.java` and a selected JUnit test class. Arbitrary
-repository layouts and multi-module projects require adaptation. Read
-[evaluating your own tests](docs/evaluating_tests.md) for the contract and limitations.
-
-The current version does not support overloaded target methods. Use a fixture
-containing only one method with the target name. Support for selecting overloaded
-methods by their full signature is planned for a future version.
-
-## Analyze Recorded Results
-
-The separate analyzer reads existing result rows and produces reports; it does
-not compile tests or collect new mutants:
+This command runs execution/failure analysis, BVA, extreme-condition mutation
+for CFA, and assertion mutation for OS, and generates reports together:
 
 ```bash
-python scripts/analyze_java_blindspots.py \
-  evaluation-output/example-mutation/results.jsonl \
-  --out-dir evaluation-output/example-analysis
+python scripts/evaluate_tests.py \
+  --project /path/to/isolated-project \
+  --signature 'public static int clamp(int value)' \
+  --test-class benchmark.YourTest \
+  --mutation --out-dir evaluation-output/my-tests
 ```
 
-This command writes only these analysis outputs under
-`<repository-root>/evaluation-output/example-analysis/`:
+Choose a new or empty output directory outside your input project. Open
+`evaluation-output/my-tests/metrics.json` for scores and `summary.md` for counts
+and breakdowns. The other output files are the same as in the quickstart, no
+separate analysis command is needed. Omit `--mutation` for basic evaluation only.
 
-| Output file | Contents |
-| --- | --- |
-| `summary.md` | Descriptive counts, scores, and breakdown tables |
-| `blindspot_profiles.jsonl` | One derived analysis profile per input row |
-| `blindspot_profiles.csv` | Tabular export of the derived profiles |
-
-Relative input and output paths use your current working directory.
-Without `--out-dir`, the analyzer writes to
-`analysis/java_blindspots/`; it can overwrite previous analysis outputs there.
-Keep the referenced `workdir/` directories available when reanalyzing results.
+PIT is an optional separate baseline, not required for BVA, CFA, or OS. The study
+collector expects `benchmark.GeneratedSmokeTest` fixtures, arbitrary JUnit
+projects need their own PIT configuration. See [the reproduction guide](docs/reproduction.md)
+for the study pipeline.
 
 ## Reproduce the Study
+
+### Analyze Archived Study Results
 
 The [study results](analysis/final-mixed-runs/release/README.md) are
 included in Git as compressed profiles: 14,320 treatment rows (4 models x 4
@@ -261,9 +235,17 @@ python scripts/analyze_java_blindspots.py \
 ```
 
 This regenerates numeric reports from recorded counts and scores without model
-calls, source workdirs, or mutation execution. Independently rerunning the original
+calls, source workdirs, or mutation execution. It writes `summary.md`,
+`blindspot_profiles.jsonl`, and `blindspot_profiles.csv` under
+`<repository-root>/evaluation-output/paper-treatment/` when run from the repository
+root. The analyzer can combine multiple input files into an aggregate report,
+it does not compile tests or collect new mutants.
+
+### Rerun the Evaluation
+
+Independently rerunning the original
 evaluation also requires the benchmark source, generated tests, and mutation
-evidence; see [data availability](DATA_AVAILABILITY.md) for their availability.
+evidence, see [data availability](DATA_AVAILABILITY.md) for their availability.
 [The reproduction guide](docs/reproduction.md) includes
 control, comparison, and funnel commands and explains rerunning the evaluation.
 Exact historical model outputs are reproduced from archived responses, not by
@@ -294,6 +276,6 @@ licensing notices and checksums. Historical PIT and extreme-condition/CFA
 evidence are not included in these mutation ZIPs. The example runs independently.
 
 Original project material is licensed under [MIT](LICENSE). Third-party
-benchmark sources and other third-party content retain their upstream terms;
+benchmark sources and other third-party content retain their upstream terms,
 see [third-party notices](THIRD_PARTY_NOTICES.md). The final paper citation has
 not yet been assigned.

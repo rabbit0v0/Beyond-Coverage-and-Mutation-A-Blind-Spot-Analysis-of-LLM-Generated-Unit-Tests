@@ -16,6 +16,10 @@ collectors invoke Maven Surefire for the selected class. Declare dependencies an
 Java compilation settings in the POM. Helper classes can stay in the project.
 Arbitrary multi-module repositories are not automatically supported.
 
+The current version does not support overloaded target methods. Use a fixture
+containing only one method with the target name. Support for selecting overloaded
+methods by their full signature is planned for a future version.
+
 ```bash
 python scripts/evaluate_tests.py \
   --project /path/to/isolated-project \

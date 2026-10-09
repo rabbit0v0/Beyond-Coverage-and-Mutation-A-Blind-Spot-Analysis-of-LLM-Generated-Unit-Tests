@@ -1,61 +1,48 @@
 # Source Distribution
 
-ObligBench's study population remains 1,595 tasks: 895 treatment and 700 control.
-The public benchmark ZIP includes
-production source for 1,585 tasks: 890 treatment and 695 control. Source for five
-tasks in each group is excluded from distribution under the release's
-source-distribution policy. Their task IDs, provenance and historical results
-remain included. These are distribution exclusions, not exclusions from the
-experiments. This is a conservative policy for public redistribution of adapted
-source, not a finding that the study's research use was prohibited. The reasons
-for withholding particular source files are listed below.
+ObligBench distributes production source for all 1,595 study tasks: 895 treatment
+and 700 control. The accompanying evaluated-test and mutation-evidence packages
+preserve the available source, tests and evidence used in the study. No task
+source is withheld under the current distribution policy.
 
-The full manifests, task IDs, provenance, evaluation records, and published
-numeric profiles remain intact. Generated tests are retained where they do not
-embed the withheld production implementation. Evaluated-test records identify unavailable
-production source through `production_source_distribution` and
-`source_exclusion_reason`; original source hashes and recorded outcomes remain
-unchanged. These test projects cannot be rerun without obtaining the missing
-production source under its applicable terms.
+## Upstream Licenses
 
-## Withheld Source
+Please respect each source's applicable upstream license when using, modifying,
+or redistributing these artifacts. Retain copyright notices, license texts and
+required attribution, and follow any source-specific conditions. Our MIT license
+covers our original contributions only; it does not relicense upstream source
+or grant additional rights to it. Publication for research does not remove
+upstream conditions or establish permission for every downstream use.
 
-Task IDs, reasons and evidence links are listed in
-[`source-exclusions.json`](benchmarks/java-complexity-v2/source-exclusions.json).
+The benchmark source was extracted from The Stack v2. Its licensing materials
+provide context for the recorded dataset labels:
 
-| Source | Tasks | Reason for withholding source from public packages |
-| --- | ---: | --- |
-| `GaboHub/fermat` | 1 | The original terms restrict use of modified source to the Fermat Framework; the benchmark uses an adapted standalone fixture. |
-| `Hellohi3654/React` | 1 | The original source carries custom revenue and other restrictions that conflict with the Stack v2 WTFPL label. |
-| `zhaoxianjin/reader` | 1 | Research-only and noncommercial wording accompanies Apache-2.0; redistribution terms for adapted fixtures are ambiguous. |
-| `arindam7development/CertWare` | 3 | The original NOSA-1.3 license was identified, but the historical modification dates and contributor declarations required for these adapted fixtures have not been established. |
-| `Tifancy/goja` | 1 | The historical fork is unavailable, and the applicable terms for its legacy JXLS code could not be established from the available evidence. |
-| `S2-group/mobilesoft-2020-iam-replication-package` | 3 | These files contain decompiled third-party app or SDK code; the applicable original redistribution licenses were not identified. |
+- [Terms of use and licensing information](https://huggingface.co/datasets/bigcode/the-stack-v2#licensing-information)
+- [License detection process](https://huggingface.co/datasets/bigcode/the-stack-v2#license-detection)
+- [License list and statistics](https://huggingface.co/datasets/bigcode/the-stack-v2/blob/main/license_stats.csv)
 
-Stack v2 provides source provenance and detected license labels, rather than a
-single license covering all extracted code. Its labels are used where no
-conflicting evidence is found. When original file or module terms conflict with
-dataset labels, those original terms take
-precedence. Our original material is licensed under MIT; bundled upstream source
-retains its applicable licenses and required notices. See
-[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+Stack v2 requires users to follow the original source licenses, including
+attribution where applicable. Its license list is not a single license for the
+benchmark. Dataset labels are used where no conflicting source evidence is found;
+original file or module terms take precedence where they differ.
 
-Randoop, Kickstarter and linked Jyroscope notices have
-been collected. Open Source Physics retains its file-level GPL notice, including
-the notice at the end of the original file. Those resolved tasks are distributed.
+Release packages include `THIRD_PARTY_SOURCES.jsonl` and a consolidated
+`third-party-notices/` directory. The task mapping records repositories, revisions,
+source paths, dataset labels and collected source-specific license evidence.
+Preserved notices include custom conditions or ambiguous scope where found;
+their inclusion does not convert them into unrestricted permission. See
+[third-party notices](THIRD_PARTY_NOTICES.md) for the licensing scope and mapping.
 
 ## Reproduction
 
-All released numeric profiles can still be analyzed for the complete study.
-Fresh execution using only the distributed source covers a subset, not a full
-rerun of all 1,595 tasks. Do not interpret absent source as a test failure or
-silently replace historical scores with subset results. A complete execution
-rerun requires independently obtaining authorized source for the withheld tasks.
+The benchmark contains all task projects. Evaluated-test packages preserve
+historical fixtures rather than replacing them with the current benchmark code.
+Files absent from historical runs and failed generations remain identified in
+the evaluation records. These historical gaps are not licensing exclusions.
 
-Removing these files from public packages does not delete the historical local
-fixtures or change the experiments. The exclusion register applies only to
-source distribution, not to analysis of the recorded results.
-
-The same policy applies to production-code copies or excerpts in accompanying
-artifact packages, including mutation evidence. Task IDs and numerical outcomes
-are retained without redistributing the withheld implementation.
+The mutation packages retain production snippets, mutant text and expression
+fields from the aligned assertion-mutation rerun. They do not contain historical
+PIT or extreme-condition/CFA evidence. Restoring source availability does not
+change recorded outcomes, scores or the study population. See
+[data availability](DATA_AVAILABILITY.md) for package contents and reproduction
+requirements.

@@ -98,15 +98,12 @@ def test_notice_package_rejects_invalid_evidence(notice_package, problem):
         module.upstream_notices(directory, [source])
 
 
-def test_source_exclusions_retain_complete_study_population(notice_package):
+def test_current_release_includes_complete_study_population(notice_package):
     module, _, _, _ = notice_package
     rows = list(load_manifest("java_v2_mixed.jsonl").values())
     exclusions = module.source_exclusions(rows)
     assert len(rows) == 1595
-    assert len(exclusions) == 10
-    assert len(exclusions.keys() & load_manifest("java_v2_mixed_treatment.jsonl").keys()) == 5
-    assert len(exclusions.keys() & load_manifest("java_v2_mixed_control.jsonl").keys()) == 5
-    assert all(entry["reason"] and entry["evidence_url"] for entry in exclusions.values())
+    assert exclusions == {}
 
 
 @pytest.mark.parametrize("problem", ["unknown", "duplicate", "repo", "reason"])

@@ -10,9 +10,9 @@ strategies (5,600 rows). Generated summaries are not committed.
 
 Independently rerunning evaluation requires Java v2 tasks and archived run/evidence
 bundles. See [data availability](../DATA_AVAILABILITY.md) for bundle filenames,
-checksums, licensing and source exclusions. Ten tasks retain their historical
-records but have production source withheld; a fresh execution rerun of those
-tasks requires separately authorized source.
+checksums and upstream licensing requirements. All benchmark task sources and
+available historical evaluated-test fixtures are included. Historical missing
+files and failed generations remain identified in the evaluation records.
 The compact profiles preserve recorded scores, not the full source and mutation
 evidence required to verify those scores independently. The mutation bundles
 contain the separate aligned-zero assertion rerun, not historical PIT or
