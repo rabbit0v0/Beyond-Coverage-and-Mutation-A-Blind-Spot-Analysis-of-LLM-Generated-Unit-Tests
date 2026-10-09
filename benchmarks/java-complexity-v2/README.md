@@ -13,8 +13,8 @@ see DATA_AVAILABILITY.md in the repository root for release status. Restore
 projects under `benchmarks/java-complexity-v2/tasks/` before generation.
 
 The public ZIP includes 1,585 source projects (890 treatment and 695 control).
-Five tasks in each group have source withheld because redistribution terms or
-required notices remain unresolved. All 1,595 task IDs and manifest records are
+To respect upstream licensing conditions, source for five tasks in each group
+is excluded from distribution. All 1,595 task IDs and manifest records are
 retained, as are the historical results; this does not change the study's task
 population or scores. See [source-exclusions.json](source-exclusions.json) for
 task-specific reasons and [source distribution](../../SOURCE_DISTRIBUTION.md)

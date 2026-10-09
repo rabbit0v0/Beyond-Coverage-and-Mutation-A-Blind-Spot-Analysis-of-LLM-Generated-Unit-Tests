@@ -39,8 +39,9 @@ reanalysis; these packages alone do not reproduce every historical collection
 step. Full model responses and human-validation materials are not published in
 this release.
 
-Source is withheld for ten tasks with unresolved redistribution conditions,
-five per cohort; all task IDs and historical outcomes remain included. The
+To respect upstream licensing conditions, production source for ten tasks is
+excluded from distribution, five per cohort; all task IDs and historical outcomes
+remain included. The
 same exclusions apply to production excerpts in mutation records. Read
 [source distribution](SOURCE_DISTRIBUTION.md) and the per-task exclusion registry
 for reasons and the limits on fresh execution. MIT covers our original

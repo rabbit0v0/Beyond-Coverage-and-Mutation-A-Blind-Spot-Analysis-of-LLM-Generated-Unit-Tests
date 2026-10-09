@@ -1,10 +1,12 @@
 # Source Distribution
 
 ObligBench's study population remains 1,595 tasks: 895 treatment and 700 control.
-The public benchmark ZIP distributes source projects for 1,585 tasks: 890
-treatment and 695 control. Source for five tasks in each group is withheld
-because applicable redistribution terms or required notices remain unresolved.
-This is a source-distribution restriction, not an exclusion from the experiments.
+To respect upstream licensing conditions, the public benchmark ZIP includes
+production source for 1,585 tasks: 890 treatment and 695 control. Source for five
+tasks in each group is excluded from distribution under the release's
+source-distribution policy. Their task IDs, provenance and historical results
+remain included. These are distribution exclusions, not exclusions from the
+experiments. Task-specific licensing reasons are listed below.
 
 The full manifests, task IDs, provenance, evaluation records, and published
 numeric profiles remain intact. Historical scores and their denominators have
@@ -23,7 +25,7 @@ Task IDs, reasons and evidence links are listed in
 | Source | Tasks | Reason |
 | --- | ---: | --- |
 | `GaboHub/fermat` | 1 | Modified source is restricted to use within the Fermat Framework. |
-| `Hellohi3654/React` | 1 | Custom revenue and other restrictions replace the dataset WTFPL label; distribution compatibility is unresolved. |
+| `Hellohi3654/React` | 1 | Original source carries custom revenue and other restrictions rather than the dataset WTFPL terms. |
 | `zhaoxianjin/reader` | 1 | Apache wording is combined with study-only and noncommercial restrictions. |
 | `arindam7development/CertWare` | 3 | NOSA-1.3 requires historical modification dates and contributor declarations that have not been established. |
 | `Tifancy/goja` | 1 | The historical fork is unavailable; legacy JXLS terms could not be reconciled with the dataset labels. |
