@@ -266,13 +266,6 @@ evaluation also requires the benchmark source, generated tests, and mutation
 evidence; see [data availability](DATA_AVAILABILITY.md) for their availability.
 [The reproduction guide](docs/reproduction.md) includes
 control, comparison, and funnel commands and explains rerunning the evaluation.
-Run the regression suite with:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python -m pytest tests
-```
-
 Exact historical model outputs are reproduced from archived responses, not by
 assuming repeated model calls return identical tests.
 
@@ -286,18 +279,11 @@ assuming repeated model calls return identical tests.
 | `scripts/run_java_pilot.py`, `scripts/run_java_sota_pipelines.py` | Test generation |
 | `scripts/run_panta_benchmark.py` | External Panta baseline adapter |
 | `scripts/evaluate_panta_results.py`, `scripts/collect_java_coverage.py` | Evaluate generated Panta tests and collect execution coverage |
-| `scripts/compare_complexity.py`, `scripts/compute_funnel_numbers.py`, `scripts/plot_failure_analysis.py` | Paper comparisons, execution counts and failure distributions |
-| `scripts/package_benchmark_release.py`, `scripts/package_study_results.py` | Rebuild benchmark and compact numeric-result archives |
 | `prompts/` | Generation and repair prompt templates |
 | `examples/java-tests/` | Self-contained executable example |
-| `tests/` | Analyzer and evaluation regression tests |
 | `benchmarks/java-complexity-v2/` | Current benchmark manifests and availability notes |
 | `analysis/final-mixed-runs/release/` | Compact final treatment/control profiles and provenance |
 | `docs/` | Evaluation, schemas, and reproduction instructions |
-
-Legacy Java v1 and TypeScript benchmarks and superseded standalone scorers have
-been removed from the public workflow. Exploratory wrappers, one-off repair
-scripts, and older diagnostic reports are also excluded. Only Java v2 is supported here.
 
 ## Data Availability, Citation, and License
 

@@ -73,16 +73,3 @@ Historical Java v1 and TypeScript benchmarks are excluded.
 - `benchmark-bundles`: optional benchmark task bundles, subject to upstream
   license permissions.
 - `validation-evidence`: manual-validation sheets and codebooks.
-
-## Local Files Intentionally Excluded
-
-- `pilot-results/`
-- `pilot-workdir/`
-- Older and intermediate analysis results, generated summaries, and duplicate exports
-- `external-tools/`
-- `.venv/`, `.cache/`, `.pnpm-store/`, and Python bytecode caches
-- `.DS_Store`, logs, backups, and temporary files
-
-Only the compact final profiles and their inventory are committed. Regenerate
-summaries and comparison CSVs with the commands in [the reproduction guide](docs/reproduction.md) rather
-than publishing redundant generated reports.
