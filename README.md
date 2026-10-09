@@ -1,5 +1,3 @@
-# Beyond Coverage and Mutation
-
 ## Overview
 
 Research code for evaluating behavioral blind spots in generated Java unit tests.
@@ -16,7 +14,7 @@ guarantee that the tests find every bug or that the production code is correct.
 
 ObligBench contains 1,595 Java method-level tasks extracted from Stack v2 and
 packaged as isolated Maven projects with the supporting code needed to run each
-focal method. The current Java v2 release has two non-overlapping groups:
+focal method. ObligBench has two non-overlapping groups:
 
 | Group | Tasks | Purpose |
 | --- | ---: | --- |
@@ -97,8 +95,6 @@ The arguments select:
 | `--signature` | The production method whose adequacy is scored: `Subject.clamp(int value)` |
 | `--test-class` | The JUnit class to execute: `benchmark.SubjectTest` |
 | `--out-dir` | A new directory for the project copy, reports, and logs |
-
-The trailing `\` characters continue the shell command onto the next line.
 
 The script copies the project, compiles its production and test code, and runs
 the selected JUnit test class. If tests execute successfully, it analyzes the

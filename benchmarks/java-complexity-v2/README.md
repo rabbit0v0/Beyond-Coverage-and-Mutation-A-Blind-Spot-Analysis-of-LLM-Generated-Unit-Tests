@@ -1,4 +1,4 @@
-# ObligBench / Java V2
+# ObligBench
 
 The supported mixed benchmark contains 1,595 unique tasks: 895 treatment and
 700 easy control functions. Current run manifests are `java_v2_mixed.jsonl`,

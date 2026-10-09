@@ -1,7 +1,7 @@
 # Final Study Results
 
-These compact profiles contain the study's recorded numeric results from the
-`pit-mutation-v11c-object-observability-broad` analysis lineage.
+These compact study analysis profiles contain the recorded numeric results used
+to regenerate the study's reports and comparisons.
 
 | Group | Models | Strategies per model | Tasks per configuration | Rows |
 | --- | ---: | ---: | ---: | ---: |
