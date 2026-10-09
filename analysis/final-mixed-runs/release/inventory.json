@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "analysis_lineage": "pit-mutation-v11c-object-observability-broad",
+  "groups": {
+    "treatment": {
+      "rows": 14320,
+      "skipped_rows": 0,
+      "source": "analysis/final-mixed-runs/assertion-strength/pit-mutation-v11c-object-observability-broad/treatment/blindspot_profiles.jsonl",
+      "source_sha256": "846dbe957439d08be64ce56686c44503dd7b01db6475d66c2919afb795b0813c",
+      "profile_sha256": "a3d958cb726980eaba1aeecf7ebe082de152b6f019dde85d352bb65976e6476d",
+      "configurations": [
+        {
+          "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8",
+          "strategy": "p3-intention-planning",
+          "rows": 895
+        },
+        {
+          "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8",
+          "strategy": "p5-mutation-feedback",
+          "rows": 895
+        },
+        {
+          "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8",
+          "strategy": "panta",
+          "rows": 895
+        },
+        {
+          "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8",
+          "strategy": "zero-shot",
+          "rows": 895
+        },
+        {
+          "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
+          "strategy": "p3-intention-planning",
+          "rows": 895
+        },
+        {
+          "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
+          "strategy": "p5-mutation-feedback",
+          "rows": 895
+        },
+        {
+          "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
+          "strategy": "panta",
+          "rows": 895
+        },
+        {
+          "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
+          "strategy": "zero-shot",
+          "rows": 895
+        },
+        {
+          "model": "gemini-3.6-flash",
+          "strategy": "p3-intention-planning",
+          "rows": 895
+        },
+        {
+          "model": "gemini-3.6-flash",
+          "strategy": "p5-mutation-feedback",
+          "rows": 895
+        },
+        {
+          "model": "gemini-3.6-flash",
+          "strategy": "panta",
+          "rows": 895
+        },
+        {
+          "model": "gemini-3.6-flash",
+          "strategy": "zero-shot",
+          "rows": 895
+        },
+        {
+          "model": "gpt-5.4",
+          "strategy": "p3-intention-planning",
+          "rows": 895
+        },
+        {
+          "model": "gpt-5.4",
+          "strategy": "p5-mutation-feedback",
+          "rows": 895
+        },
+        {
+          "model": "gpt-5.4",
+          "strategy": "panta",
+          "rows": 895
+        },
+        {
+          "model": "gpt-5.4",
+          "strategy": "zero-shot",
+          "rows": 895
+        }
+      ]
+    },
+    "control": {
+      "rows": 5600,
+      "skipped_rows": 700,
+      "source": "analysis/final-mixed-runs/assertion-strength/pit-mutation-v11c-object-observability-broad/control/blindspot_profiles.jsonl",
+      "source_sha256": "8d020ca31b04918c8713ddabe6d1d3602e088c6b945679746759e5e1f491d0dc",
+      "profile_sha256": "5ea63a54826369b607f9a4611ea511830dec94f49dc3a4c79e10ba656ec92316",
+      "configurations": [
+        {
+          "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
+          "strategy": "p3-intention-planning",
+          "rows": 700
+        },
+        {
+          "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
+          "strategy": "p5-mutation-feedback",
+          "rows": 700
+        },
+        {
+          "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
+          "strategy": "panta",
+          "rows": 700
+        },
+        {
+          "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
+          "strategy": "zero-shot",
+          "rows": 700
+        },
+        {
+          "model": "gpt-5.4",
+          "strategy": "p3-intention-planning",
+          "rows": 700
+        },
+        {
+          "model": "gpt-5.4",
+          "strategy": "p5-mutation-feedback",
+          "rows": 700
+        },
+        {
+          "model": "gpt-5.4",
+          "strategy": "panta",
+          "rows": 700
+        },
+        {
+          "model": "gpt-5.4",
+          "strategy": "zero-shot",
+          "rows": 700
+        }
+      ]
+    }
+  }
+}

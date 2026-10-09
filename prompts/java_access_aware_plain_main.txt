@@ -1,0 +1,35 @@
+Generate a complete Java test file for `src/test/java/benchmark/GeneratedSmokeTest.java`.
+
+Rules:
+- Return only Java code.
+- The code must be in package `benchmark`.
+- Define exactly one public class named `GeneratedSmokeTest`.
+- Define `public static void main(String[] args) throws Exception`.
+- Do not use JUnit, Mockito, external libraries, filesystem, network, sleep, timers, or randomness.
+- Use helper methods inside `GeneratedSmokeTest` if useful.
+- Use concrete checks and throw `AssertionError` when behavior is unexpected.
+- The test must compile in a minimal Maven Java 17 project.
+
+Java access-control restrictions:
+- Do not access, instantiate, subclass, extend, override, or reference private nested classes of `Subject`.
+- Do not access private fields or private methods of `Subject`.
+- Do not use reflection to bypass Java access control.
+- Treat `Subject.java` as production code that cannot be modified.
+- Only use APIs that are accessible from a separate class in the same `benchmark` package.
+- If the target behavior is not directly observable, write conservative black-box tests that verify public return values or no unexpected exception.
+
+Coverage intent:
+- Include at least one normal-path case.
+- Include at least one boundary or edge case when the API permits it.
+- Include at least one exceptional or invalid-input case when the API permits it.
+- Avoid tests that only call the method without checking anything, unless the method has no observable output and no accessible state.
+
+Target symbol: `{symbol_name}`
+
+Task metadata:
+{metadata_json}
+
+Source file `src/main/java/benchmark/Subject.java`:
+```java
+{source_code}
+```

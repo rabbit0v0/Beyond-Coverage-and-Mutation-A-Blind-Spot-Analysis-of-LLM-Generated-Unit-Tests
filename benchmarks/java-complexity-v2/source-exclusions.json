@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "scope": "Source distribution only; all task IDs, manifests and historical results remain part of the study.",
+  "tasks": [
+    {
+      "task_id": "javarep_b560bae49a1e02f5",
+      "repo_name": "arindam7development/CertWare",
+      "reason": "NOSA-1.3 requires modification dates and contributor declarations that have not been established for the historical fixture.",
+      "evidence_url": "https://raw.githubusercontent.com/arindam7development/CertWare/cbbfdb6012229444d3c0d7e64c08ac2a15081518/net.certware.doc/license.txt"
+    },
+    {
+      "task_id": "javarep_b9731b41b4cfe752",
+      "repo_name": "GaboHub/fermat",
+      "reason": "The component license restricts modified source to use within the Fermat Framework; the isolated benchmark fixture does not meet that scope.",
+      "evidence_url": "https://raw.githubusercontent.com/GaboHub/fermat/ea0d20a15fb62e6165e30405639e11bcf9d3e12e/CCP/android/reference_wallet/fermat-ccp-android-reference-wallet-bitcoin-wallet-bitdubai/LICENSE.md"
+    },
+    {
+      "task_id": "javarep_c3275b953118b07c",
+      "repo_name": "arindam7development/CertWare",
+      "reason": "NOSA-1.3 requires modification dates and contributor declarations that have not been established for the historical fixture.",
+      "evidence_url": "https://raw.githubusercontent.com/arindam7development/CertWare/cbbfdb6012229444d3c0d7e64c08ac2a15081518/net.certware.doc/license.txt"
+    },
+    {
+      "task_id": "javarep_cfe4d3c2b531a2c2",
+      "repo_name": "Hellohi3654/React",
+      "reason": "The original Volmit license replaces the dataset WTFPL label with revenue and other restrictions; compatibility with this distribution has not been established.",
+      "evidence_url": "https://raw.githubusercontent.com/Hellohi3654/React/260c06485bf1bf9c77195dd82cfad221f1b8aa42/LICENSE.md"
+    },
+    {
+      "task_id": "javarep_ec552b8bacd471c2",
+      "repo_name": "zhaoxianjin/reader",
+      "reason": "The README combines Apache-2.0 with study-only and noncommercial restrictions; applicable redistribution terms remain unclear.",
+      "evidence_url": "https://raw.githubusercontent.com/zhaoxianjin/reader/2dcbad56a14625925253941509753f8051efcbf7/README.md"
+    },
+    {
+      "task_id": "javav2easy_40f80dccb1e22661",
+      "repo_name": "Tifancy/goja",
+      "reason": "The historical fork is unavailable and the source follows legacy JXLS; its original library terms could not be reconciled with the dataset MIT/Apache labels.",
+      "evidence_url": "https://jxls.sourceforge.net/1.x/license.html"
+    },
+    {
+      "task_id": "javav2easy_86b31cb26c1ad662",
+      "repo_name": "S2-group/mobilesoft-2020-iam-replication-package",
+      "reason": "The file is decompiled third-party application code; the replication repository MIT license does not establish permission for the application source.",
+      "evidence_url": "https://raw.githubusercontent.com/S2-group/mobilesoft-2020-iam-replication-package/600d790aaea7f1ca663d9c187df3c8760c63eacd/README.md"
+    },
+    {
+      "task_id": "javav2easy_87ade94ba0419c80",
+      "repo_name": "arindam7development/CertWare",
+      "reason": "NOSA-1.3 requires modification dates and contributor declarations that have not been established for the historical fixture.",
+      "evidence_url": "https://raw.githubusercontent.com/arindam7development/CertWare/cbbfdb6012229444d3c0d7e64c08ac2a15081518/net.certware.doc/license.txt"
+    },
+    {
+      "task_id": "javav2easy_8e645f13f365e3a8",
+      "repo_name": "S2-group/mobilesoft-2020-iam-replication-package",
+      "reason": "The file is decompiled third-party application code; the replication repository MIT license does not establish permission for the application source.",
+      "evidence_url": "https://raw.githubusercontent.com/S2-group/mobilesoft-2020-iam-replication-package/600d790aaea7f1ca663d9c187df3c8760c63eacd/README.md"
+    },
+    {
+      "task_id": "javav2easy_a1e7d865acd09015",
+      "repo_name": "S2-group/mobilesoft-2020-iam-replication-package",
+      "reason": "The file is decompiled third-party application code; the replication repository MIT license does not establish permission for the application source.",
+      "evidence_url": "https://raw.githubusercontent.com/S2-group/mobilesoft-2020-iam-replication-package/600d790aaea7f1ca663d9c187df3c8760c63eacd/README.md"
+    }
+  ]
+}

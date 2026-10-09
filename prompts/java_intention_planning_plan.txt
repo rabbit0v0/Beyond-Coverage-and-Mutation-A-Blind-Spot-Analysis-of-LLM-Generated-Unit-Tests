@@ -1,0 +1,74 @@
+You are designing unit-test intentions for a Java focal method.
+
+Return only valid JSON. Do not return Markdown.
+
+Target:
+- Generate intentions for tests that will later be implemented in
+  `src/test/java/benchmark/GeneratedSmokeTest.java`.
+- The final test file will be a plain Java class in package `benchmark` with
+  `public static void main(String[] args) throws Exception`.
+- No JUnit, Mockito, external libraries, filesystem, network, sleep, timers,
+  or randomness are allowed.
+- Tests must use concrete checks and throw `AssertionError` when behavior is
+  unexpected.
+
+Design goals:
+- Include normal behavior only when it has meaningful expected behavior.
+- Include boundary values when the API permits them.
+- Include exception/error cases when the focal method has validation or throw
+  behavior.
+- Include state-transition checks when behavior changes across repeated calls.
+- Include interaction/dependency checks only when observable through accessible
+  public/package-visible behavior.
+- Avoid smoke tests that merely call the method.
+- Avoid redundant tests.
+
+For each intended test, include:
+- `name`: concise test name.
+- `behavior`: behavior being checked.
+- `category`: one of `normal`, `boundary`, `exception`, `branch`, `state`,
+  `collection_domain`, `interaction_dependency`, `oracle_strength`.
+- `setup`: required setup or object construction.
+- `inputs`: concrete input values or object states.
+- `expected`: expected return value, state change, exception, or observable
+  effect.
+- `assertion`: what the generated Java test should assert.
+- `rationale`: why this test is useful and non-redundant.
+
+Return this JSON shape:
+{{
+  "target_summary": "...",
+  "observability_notes": "...",
+  "intentions": [
+    {{
+      "name": "...",
+      "behavior": "...",
+      "category": "...",
+      "setup": "...",
+      "inputs": "...",
+      "expected": "...",
+      "assertion": "...",
+      "rationale": "..."
+    }}
+  ]
+}}
+
+Target symbol: `{symbol_name}`
+
+Task metadata:
+{metadata_json}
+
+Lightweight static context summary:
+```json
+{static_context_json}
+```
+
+Deterministic test scaffold shape available to the generator:
+```java
+{deterministic_scaffold}
+```
+
+Source file `src/main/java/benchmark/Subject.java`:
+```java
+{source_code}
+```

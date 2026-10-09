@@ -1,0 +1,90 @@
+# macOS / editor noise
+.DS_Store
+**/.DS_Store
+Thumbs.db
+*~
+.idea/
+.vscode/
+
+# Python environments, bytecode, and test caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node/package-manager caches used by some benchmark tooling
+node_modules/
+.pnpm-store/
+
+# Local tool caches and downloaded binaries
+.cache/
+
+# Generated benchmark/run workspaces
+pilot-workdir/
+
+# Raw or bulky run outputs should be curated before publication.
+# Keep compact summaries/manifests in git; archive full raw outputs in a data
+# repository or release asset when needed.
+pilot-results/
+!pilot-results/README.md
+
+# Logs and backup/scrub intermediates
+*.log
+*.bak
+*.backup
+*.backup-*
+*.tmp
+scrub-backups/
+
+# Local environment files. Publish examples instead.
+.env
+.env.*
+!.env.example
+
+# Bundled third-party checkouts/tools should be represented by provenance,
+# installation instructions, submodules, or release archives rather than copied
+# wholesale into this repository.
+external-tools/
+
+# Old exploratory material that is not part of the public artifact.
+archive/
+documentation/
+
+# Publish only the compact canonical final-study profiles, not generated reports.
+!analysis/
+analysis/*
+!analysis/final-mixed-runs/
+analysis/final-mixed-runs/*
+!analysis/final-mixed-runs/release/
+analysis/final-mixed-runs/release/*
+!analysis/final-mixed-runs/release/README.md
+!analysis/final-mixed-runs/release/inventory.json
+!analysis/final-mixed-runs/release/treatment/
+!analysis/final-mixed-runs/release/control/
+analysis/final-mixed-runs/release/treatment/*
+analysis/final-mixed-runs/release/control/*
+!analysis/final-mixed-runs/release/treatment/blindspot_profiles.jsonl.gz
+!analysis/final-mixed-runs/release/control/blindspot_profiles.jsonl.gz
+
+# Publish current benchmark notes, source exclusions and treatment/control manifests.
+!benchmarks/
+benchmarks/*
+!benchmarks/java-complexity-v2/
+benchmarks/java-complexity-v2/*
+!benchmarks/java-complexity-v2/README.md
+!benchmarks/java-complexity-v2/source-exclusions.json
+!benchmarks/java-complexity-v2/manifests/
+benchmarks/java-complexity-v2/manifests/*
+!benchmarks/java-complexity-v2/manifests/java_v2_mixed.jsonl
+!benchmarks/java-complexity-v2/manifests/java_v2_mixed_treatment.jsonl
+!benchmarks/java-complexity-v2/manifests/java_v2_mixed_control.jsonl
+
+# Generated evaluation outputs
+evaluation-output/
+**/target/

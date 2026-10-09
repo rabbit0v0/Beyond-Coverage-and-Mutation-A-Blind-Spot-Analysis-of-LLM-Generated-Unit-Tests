@@ -1,0 +1,64 @@
+Improve the generated Java test file using PIT mutation feedback.
+
+Return only the complete replacement Java code for
+`src/test/java/benchmark/GeneratedSmokeTest.java`.
+
+Rules:
+- The code must be in package `benchmark`.
+- Define exactly one public class named `GeneratedSmokeTest`.
+- Define `public static void main(String[] args) throws Exception`.
+- Do not use JUnit, Mockito, external libraries, filesystem, network, sleep,
+  timers, or randomness.
+- Use helper methods inside `GeneratedSmokeTest` if useful.
+- Use concrete checks and throw `AssertionError` when behavior is unexpected.
+- The test must compile in a minimal Maven Java 17 project.
+- Do not modify `Subject.java`.
+- Do not use reflection to bypass Java access control.
+- Do not access private fields, private methods, or private nested classes.
+- Only use APIs accessible from a separate class in the same `benchmark`
+  package.
+
+Goal:
+- Keep useful existing tests.
+- Add targeted tests that kill the surviving or uncovered mutants when
+  possible.
+- Each new test should correspond to a missing behavioral obligation.
+- Prefer stronger assertions over merely adding more method calls.
+- If a mutant cannot be killed due to unobservable private behavior, do not
+  invent brittle or illegal access.
+
+Target symbol: `{symbol_name}`
+
+Task metadata:
+{metadata_json}
+
+Lightweight static context summary:
+```json
+{static_context_json}
+```
+
+Use this deterministic scaffold style. You may add helper methods, but keep the
+same plain-Java main-test contract:
+```java
+{deterministic_scaffold}
+```
+
+Original test intention plan:
+```json
+{intention_plan}
+```
+
+Current generated test file:
+```java
+{current_test_code}
+```
+
+PIT mutation feedback:
+```json
+{mutation_feedback_json}
+```
+
+Source file `src/main/java/benchmark/Subject.java`:
+```java
+{source_code}
+```

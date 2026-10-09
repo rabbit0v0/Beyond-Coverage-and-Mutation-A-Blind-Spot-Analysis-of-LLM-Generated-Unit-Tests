@@ -1,0 +1,63 @@
+Repair the generated Java test file using compiler/runtime feedback.
+
+Return only the complete replacement Java code for
+`src/test/java/benchmark/GeneratedSmokeTest.java`.
+
+Rules:
+- The code must be in package `benchmark`.
+- Define exactly one public class named `GeneratedSmokeTest`.
+- Define `public static void main(String[] args) throws Exception`.
+- Do not use JUnit, Mockito, external libraries, filesystem, network, sleep,
+  timers, or randomness.
+- Use concrete checks and throw `AssertionError` when behavior is unexpected.
+- Do not modify `Subject.java`.
+- Do not use reflection to bypass Java access control.
+- Do not access private fields, private methods, or private nested classes.
+- Only use APIs accessible from a separate class in the same `benchmark`
+  package.
+
+Repair goals:
+- Fix only compilation errors, access-control mistakes, missing checked
+  exceptions, wrong constructors, wrong method calls, or deterministic runtime
+  failures.
+- Preserve meaningful tests and assertions when possible.
+- If an intended behavior is unobservable due to private-only state, replace it
+  with the strongest legal black-box assertion available.
+- Do not weaken the suite into smoke tests unless there is genuinely no
+  observable behavior.
+
+Target symbol: `{symbol_name}`
+
+Task metadata:
+{metadata_json}
+
+Lightweight static context summary:
+```json
+{static_context_json}
+```
+
+Use this deterministic scaffold style. You may add helper methods, but keep the
+same plain-Java main-test contract:
+```java
+{deterministic_scaffold}
+```
+
+Original test intention plan:
+```json
+{intention_plan}
+```
+
+Current generated test file:
+```java
+{current_test_code}
+```
+
+Compiler/runtime feedback:
+```text
+{failure_log}
+```
+
+Source file `src/main/java/benchmark/Subject.java`:
+```java
+{source_code}
+```
