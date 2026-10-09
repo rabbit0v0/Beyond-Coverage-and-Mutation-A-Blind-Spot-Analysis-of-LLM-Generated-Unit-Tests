@@ -59,6 +59,15 @@ PUBLICATION_CHECKLIST.md
 prompts/java_structured_intent_plain_main.txt
 prompts/java_access_aware_plain_main.txt
 
+# Local publication, repair, validation-packet and benchmark-preparation utilities.
+scripts/audit_public_release.py
+scripts/create_assertion_mutation_manual_sample.py
+scripts/env.sh
+scripts/scrub_infrastructure_failures.py
+scripts/scrub_public_paths.py
+scripts/java_v2_benchmark/split_mixed_v2_easy_control.py
+scripts/java_v2_benchmark/verify_stackv2_benchmark.py
+
 # Publish only the compact canonical final-study profiles, not generated reports.
 !analysis/
 analysis/*

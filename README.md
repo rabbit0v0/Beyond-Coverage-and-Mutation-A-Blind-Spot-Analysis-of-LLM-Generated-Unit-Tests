@@ -284,6 +284,9 @@ assuming repeated model calls return identical tests.
 | `scripts/collect_java_*mutation.py` | PIT and custom mutation collectors |
 | `scripts/run_java_pilot.py`, `scripts/run_java_sota_pipelines.py` | Test generation |
 | `scripts/run_panta_benchmark.py` | External Panta baseline adapter |
+| `scripts/evaluate_panta_results.py`, `scripts/collect_java_coverage.py` | Evaluate generated Panta tests and collect execution coverage |
+| `scripts/compare_complexity.py`, `scripts/compute_funnel_numbers.py`, `scripts/plot_failure_analysis.py` | Paper comparisons, execution counts and failure distributions |
+| `scripts/package_benchmark_release.py`, `scripts/package_study_results.py` | Rebuild benchmark and compact numeric-result archives |
 | `prompts/` | Generation and repair prompt templates |
 | `examples/java-tests/` | Self-contained executable example |
 | `tests/` | Analyzer and evaluation regression tests |

@@ -21,8 +21,10 @@ task-specific reasons and [source distribution](../../SOURCE_DISTRIBUTION.md)
 for details. Metadata for withheld tasks does not constitute a runnable project.
 
 Java v1 and TypeScript exploration and construction scripts requiring those old
-inputs are excluded from the public workflow. Current split and verification
-utilities remain under `scripts/java_v2_benchmark/`.
+inputs are excluded from the public workflow. Use the provided treatment and
+control manifests for the current cohorts. The benchmark packager checks task
+metadata, source-exclusion policy and required upstream notices when preparing
+an archive.
 
 Upstream licenses and attribution must accompany a task-bundle release. The
 project's MIT license does not replace individual source licenses. See
