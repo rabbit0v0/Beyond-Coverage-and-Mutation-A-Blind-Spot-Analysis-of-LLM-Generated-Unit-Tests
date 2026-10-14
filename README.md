@@ -6,6 +6,8 @@ The evaluation reports compilation and execution outcomes and classifies failed
 runs by failure type and stage. For tests that execute successfully, it measures
 Boundary-Value Adequacy (BVA), Control-Flow Adequacy (CFA), and Oracle Strength (OS).
 
+![Framework overview showing source code, generated tests, failure analysis, parallel extreme-condition and assertion mutations, and analysis producing BVA, CFA, and OS scores.](assets/framework-overview.png)
+
 These scores indicate which boundary inputs the tests exercise and which changes
 to control flow, return values, or exceptions they detect. A high score does not
 guarantee that the tests find every bug or that the production code is correct.
