@@ -54,6 +54,26 @@ def test_packaged_release_has_exact_configurations_and_no_duplicates():
         assert hashlib.sha256(path.read_bytes()).hexdigest() == inventory["groups"][split]["profile_sha256"]
 
 
+def test_release_provenance_matches_v11_scoring_and_public_profile_contract():
+    root = Path(__file__).resolve().parents[1] / "analysis/final-mixed-runs/release"
+    inventory = json.loads((root / "inventory.json").read_text())
+    assert inventory["schema_version"] == 2
+    collection = inventory["os_collection"]
+    assert collection["collector_version"] == "custom_assertion_mutation_v11"
+    assert collection["settings"]["incidental_score"] == "zero"
+    assert inventory["preserved_non_os_evidence"]["fields_unchanged"] is True
+    for split in ("treatment", "control"):
+        group = inventory["groups"][split]
+        assert group["source"] == f"mutation-evidence-{split}-v11-zero.zip::profiles/blindspot_profiles.jsonl.gz"
+        assert group["source_sha256"] == group["profile_sha256"]
+        with gzip.open(root / split / "blindspot_profiles.jsonl.gz", "rt") as handle:
+            for line in handle:
+                row = json.loads(line)
+                assert not ({"workdir", "assertion_strength_items", "extracted_test_code", "side_effect_research_scope"} & row.keys())
+                assert set(row["assertion_strength_by_construct"]) <= {"return_behavior", "exception_behavior"}
+                assert row.get("assertion_strength_score") is None or 0 <= row["assertion_strength_score"] <= 1
+
+
 def test_saved_failure_classifications_do_not_require_logs():
     row = {"failure_family": "compile_failure", "failure_category": "type_mismatch", "execution_passed": False}
     assert failures.classify_outcome(row) == ("compile_failure", "type_mismatch")

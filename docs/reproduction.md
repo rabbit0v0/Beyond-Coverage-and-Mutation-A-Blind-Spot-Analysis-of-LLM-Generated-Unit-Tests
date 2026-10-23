@@ -19,12 +19,12 @@ ObligBench tasks and archived run artifacts. See
 upstream licensing requirements. The bundles provide benchmark source and
 archived evaluated-test projects.
 
-The compact profiles preserve recorded scores, but not the full source and
-mutation evidence needed to verify those scores independently. In addition, the
-mutation bundles contain a separate aligned-zero assertion rerun rather than
-historical PIT or extreme-condition/CFA evidence. Therefore, use the compact
-profiles to regenerate the study's recorded tables and treat the aligned rerun
-as a separate collection of assertion evidence.
+The compact profiles contain v11 OS scores alongside the preserved BVA, CFA,
+PIT and execution/failure results. Their matching mutation bundles contain
+assertion-mutation records and logs from `custom_assertion_mutation_v11` with
+incidental kills scored zero. Those bundles also include byte-identical copies
+of the compact profiles. They do not contain PIT or extreme-condition/CFA
+mutation logs, so use the profiles to regenerate those recorded numeric results.
 
 ## Regenerate Numeric Results
 

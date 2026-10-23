@@ -269,9 +269,15 @@ model calls are not guaranteed to generate identical tests.
 
 [Data availability](DATA_AVAILABILITY.md) describes the benchmark and evidence
 bundles and reproduction limits. The accompanying artifact distribution
-provides the benchmark, evaluated tests, aligned assertion-mutation evidence,
-licensing notices and checksums. Historical PIT and extreme-condition/CFA
-evidence are not included in these mutation ZIPs. The example runs independently.
+provides the benchmark, evaluated tests, v11 assertion-mutation evidence,
+licensing notices and checksums. PIT and extreme-condition/CFA mutation logs
+are not included in these ZIPs. The example runs independently.
+
+The study profiles use v11 assertion-mutation evidence for OS. Assertion and
+verification failures receive credit, while uncaught non-assertion exceptions
+and crashes receive zero and remain in the denominator. BVA and CFA retain their
+recorded values. See the [OS scoring rules](docs/custom_assertion_mutation_operator_table.md)
+for details.
 
 Original project material is licensed under [MIT](LICENSE). Third-party
 benchmark sources and other third-party content retain their upstream terms,

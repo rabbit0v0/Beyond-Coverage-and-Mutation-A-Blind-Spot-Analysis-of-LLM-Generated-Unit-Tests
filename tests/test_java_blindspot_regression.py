@@ -973,22 +973,156 @@ def test_domain_object_record_return_uses_canonical_default_args_instead_of_null
     assert replacement["rule"] == "domain_object_record_canonical_defaults"
 
 
-def test_plain_java_manual_assertion_error_log_is_oracle_kill(tmp_path):
+def test_assertion_and_verification_failures_are_oracle_kills_without_source(tmp_path):
     log = tmp_path / "execute.log"
-    log.write_text(
-        """
-        [ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:3.5.0:java
-        (default-cli) on project task: An exception occurred while executing the Java class.
-        java.lang.AssertionError: expected [42] but was [0]
-            at benchmark.GeneratedSmokeTest.checkEquals(GeneratedSmokeTest.java:12)
-            at benchmark.GeneratedSmokeTest.main(GeneratedSmokeTest.java:7)
-        -> [Help 1]
-        """,
-        encoding="utf-8",
-    )
+    for failure_type in (
+        "java.lang.AssertionError",
+        "org.opentest4j.AssertionFailedError",
+        "org.opentest4j.MultipleFailuresError",
+        "org.junit.ComparisonFailure",
+        "org.mockito.exceptions.verification.TooManyActualInvocations",
+        "org.mockito.exceptions.verification.WantedButNotInvoked",
+        "org.mockito.exceptions.verification.NoInteractionsWanted",
+        "org.mockito.exceptions.verification.junit.ArgumentsAreDifferent",
+    ):
+        log.write_text(f'{failure_type}: arbitrary diagnostic message\n')
+        status, reason = assertion_mutation.killed_status_from_execute_log(str(log))
+        assert status == "killed_by_oracle"
+        assert reason == f"assertion_failure:{failure_type}"
+
+
+def test_failure_messages_do_not_determine_the_outcome(tmp_path):
+    log = tmp_path / "execute.log"
+    for message in ("expected true", "AssertionError should not occur", "but was false"):
+        log.write_text(f"java.lang.NullPointerException: {message}\n")
+        status, _ = assertion_mutation.killed_status_from_execute_log(str(log))
+        assert status == "killed_incidentally"
+    log.write_text("An exception occurred while executing the Java class. expected false -> [Help 1]\n")
     status, reason = assertion_mutation.killed_status_from_execute_log(str(log))
+    assert status == "coverage_unverified"
+    assert reason == "failure_type_unverified"
+
+
+def test_changed_exception_escaping_is_incidental_regardless_of_origin(tmp_path):
+    log = tmp_path / "execute.log"
+    for frame in (
+        "benchmark.Subject.fail(Subject.java:4)",
+        "benchmark.GeneratedSmokeTest.main(GeneratedSmokeTest.java:9)",
+        "some.Dependency.call(Dependency.java:4)",
+    ):
+        log.write_text("An exception occurred while executing the Java class. changed type -> [Help 1]\n"
+                       "org.apache.maven.lifecycle.LifecycleExecutionException: failed\n"
+                       "Caused by: java.lang.IllegalStateException: changed type\n"
+                       f" at {frame}\n")
+        status, reason = assertion_mutation.killed_status_from_execute_log(
+            str(log), "IllegalStateException", workdir=tmp_path,
+            signature="public void fail()", construct="exception_behavior",
+        )
+        assert status == "killed_incidentally"
+        assert reason == "unhandled_exception:java.lang.IllegalStateException"
+
+
+def test_assertion_failure_with_runtime_cause_is_still_an_oracle_kill(tmp_path):
+    log = tmp_path / "execute.log"
+    log.write_text('Exception in thread "main" org.opentest4j.AssertionFailedError: wrong type\n'
+                   " at benchmark.GeneratedSmokeTest.main(GeneratedSmokeTest.java:5)\n"
+                   "Caused by: java.lang.IllegalStateException: changed type\n"
+                   " at benchmark.Subject.fail(Subject.java:4)\n")
+    status, _ = assertion_mutation.killed_status_from_execute_log(
+        str(log), "IllegalStateException", construct="exception_behavior",
+    )
     assert status == "killed_by_oracle"
-    assert reason == "assertion_failure_or_assertion_library_signal"
+
+
+def test_assertion_credit_does_not_depend_on_source_expression(tmp_path):
+    log = tmp_path / "execute.log"
+    log.write_text("org.opentest4j.AssertionFailedError: anything\n"
+                   " at benchmark.GeneratedSmokeTest.main(GeneratedSmokeTest.java:4)\n")
+    path = tmp_path / "src/test/java/benchmark/GeneratedSmokeTest.java"
+    path.parent.mkdir(parents=True)
+    for expression in (
+        "assertFalse(Subject.check())",
+        "assertEquals(2, countCalls(Subject.check()))",
+        "assertThrows(RuntimeException.class, Subject::check)",
+        "assertFalse(true || Subject.check())",
+        "assertTrue(savedField)",
+    ):
+        path.write_text("package benchmark;\npublic class GeneratedSmokeTest {\n"
+                        " public static void main(String[] args) {\n"
+                        f"  {expression};\n"
+                        " }\n}\n")
+        status, _ = assertion_mutation.killed_status_from_execute_log(
+            str(log), workdir=tmp_path, signature="public boolean check()", construct="return_behavior",
+        )
+        assert status == "killed_by_oracle"
+
+
+def test_mockito_strictness_and_smart_null_runtime_failures_are_incidental(tmp_path):
+    log = tmp_path / "execute.log"
+    for failure_type in (
+        "org.mockito.exceptions.misusing.UnnecessaryStubbingException",
+        "org.mockito.exceptions.misusing.PotentialStubbingProblem",
+        "org.mockito.exceptions.verification.SmartNullPointerException",
+    ):
+        log.write_text(f"{failure_type}: diagnostic\n")
+        status, _ = assertion_mutation.killed_status_from_execute_log(str(log))
+        assert status == "killed_incidentally"
+
+
+def test_jvm_crash_and_process_signal_are_incidental(tmp_path):
+    log = tmp_path / "execute.log"
+    log.write_text("# A fatal error has been detected by the Java Runtime Environment:\n# SIGSEGV\n")
+    status, reason = assertion_mutation.killed_status_from_execute_log(str(log))
+    assert status == "killed_incidentally"
+    assert reason == "jvm_crash"
+    for code in (-11, -9, 137, 139):
+        status, _ = assertion_mutation.killed_status_from_execute_log(None, returncode=code)
+        assert status == "killed_incidentally"
+    log.write_text("org.apache.maven.surefire.booter.SurefireBooterForkException: fork terminated\n"
+                   "Process Exit Code: 137\n")
+    status, _ = assertion_mutation.killed_status_from_execute_log(str(log), returncode=1)
+    assert status == "killed_incidentally"
+
+
+def test_missing_logs_and_tool_wrappers_are_unverified(tmp_path):
+    status, _ = assertion_mutation.killed_status_from_execute_log(None)
+    assert status == "coverage_unverified"
+    log = tmp_path / "execute.log"
+    log.write_text("org.apache.maven.lifecycle.LifecycleExecutionException: plugin failed\n")
+    status, _ = assertion_mutation.killed_status_from_execute_log(str(log), returncode=1)
+    assert status == "coverage_unverified"
+
+
+def test_incidental_kills_receive_no_default_os_credit():
+    aggregate = assertion_mutation.aggregate_variant_scores(
+        [
+            {"outcome": "killed_by_oracle"},
+            {"outcome": "killed_incidentally"},
+            {"outcome": "survived"},
+            {"outcome": "coverage_unverified"},
+        ],
+        incidental_score="zero",
+    )
+    assert aggregate["score"] == pytest.approx(1 / 3)
+    assert aggregate["scored_variant_count"] == 3
+
+
+def test_full_exception_details_are_requested_for_maven_execution(tmp_path):
+    from unittest.mock import patch
+
+    calls = []
+
+    def run(args, workdir, log, timeout):
+        calls.append(args)
+        return {"status": "completed", "returncode": 0, "log": str(log)}
+
+    with patch.object(assertion_mutation, "run_command", side_effect=run):
+        result = assertion_mutation.run_generated_test(
+            tmp_path, "sanity", "mutant", 30, "mvn", test_class="benchmark.SubjectTest",
+        )
+    assert result["status"] == "survived"
+    assert "-e" in calls[1]
+    assert "-DtrimStackTrace=false" in calls[1]
 
 
 def test_return_subcategory_is_derived_from_operator_rule_not_source_type():

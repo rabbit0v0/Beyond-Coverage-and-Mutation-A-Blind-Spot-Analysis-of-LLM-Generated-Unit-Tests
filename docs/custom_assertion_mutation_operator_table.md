@@ -23,7 +23,7 @@ applicable mutation rule.
 | Exception behavior: direct throw | Replace `throw new T(...)` with a different exception type, never `AssertionError`. For unchecked exceptions, use unchecked sibling-like alternatives, although `RuntimeException` is not a normal replacement candidate. For checked exceptions, prefer another checked type already declared by the method and otherwise fall back to an unchecked type. Original `RuntimeException`, `Exception`, and `Throwable` throws are tagged `subsumed_by_broad_original` and reported both included and excluded because broad-type assertions cannot distinguish many generated replacements. |
 | Exception behavior: indirect throw | For `throw ex;`, mutate the direct `ex = new T(...)` or `T ex = new T(...)` assignment in the same target method. Helper-factory throws are out of scope and are marked `not_generated`. |
 | Exception replacement inside local catches | If an enclosing catch clause would catch both the original and candidate exception in the same way, reject that candidate as likely equivalent and try another. If no candidate changes the handler, mark `not_generated`. |
-| Exception kill classification | Assertion failures and common assertion-library or Mockito verification failures are `killed_by_oracle`. Mockito strictness failures are logged as `mockito_strictness_failure` and remain incidental. For exception-behavior mutants, if the injected replacement exception escapes the test, the mutant is `killed_by_oracle` because the original passing test must have handled the original exception type. |
+| Kill classification | A recognized assertion or verification failure is `killed_by_oracle`. An uncaught non-assertion exception or a process crash is `killed_incidentally`. The collector reads exception-type headers and crash evidence rather than diagnostic-message keywords or test-source dataflow. If failure evidence is insufficient, the outcome is `coverage_unverified`. |
 
 After mutation execution, scoring considers reached obligations only and limits
 the primary assertion-strength score to `return_behavior` and `exception_behavior`.
@@ -33,6 +33,24 @@ generated variants and then averages those obligation scores. Under this policy,
 `0.0` by default. However, `--incidental-score exclude` removes incidental kills
 from scoring. The collector reports `not_reached`, `not_generated`, `out_of_scope`,
 compile errors, and timeouts separately.
+
+The current collector records version `custom_assertion_mutation_v11`. OS measures
+assertion-mediated detection of return-value and exception-type mutations, whether
+the assertion observes the changed behavior directly or indirectly. A failed
+Mockito call-count verification therefore counts as an oracle kill. Mockito
+strictness exceptions are runtime failures rather than assertion failures.
+
+Exception mutations change the type at an existing throw site rather than adding
+a new throw site. If an exception assertion fails because the type changes, the
+mutant receives oracle credit. If the changed exception instead escapes uncaught,
+it is an incidental kill and receives zero credit under the default policy.
+
+Incidental kills remain in the default denominator even though they do not earn
+OS credit. Missing or unclassifiable failure evidence is excluded rather than
+guessed. Compilation failures, timeouts, and tooling failures are recorded
+separately. Side-effect adequacy remains future work and is excluded from public
+scores. BVA and CFA calculations are unchanged, and historical archives retain
+their original collector versions and scores.
 
 Opaque-object null-return mutants receive the `degenerate_null` tag, but their
 actual execution outcomes are still recorded. By default, they follow the same

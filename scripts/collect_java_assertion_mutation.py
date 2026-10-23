@@ -56,7 +56,7 @@ from collect_java_extreme_condition_mutation import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSERTION_MUTATION_VERSION = "custom_assertion_mutation_v9"
+ASSERTION_MUTATION_VERSION = "custom_assertion_mutation_v11"
 LOG_DIR_NAME = "assertion-mutants"
 REPRESENTED_STATUSES = {
     "killed_by_oracle",
@@ -249,15 +249,21 @@ def collect_subject_line_coverage(
 
 
 ORACLE_FAILURE_RE = re.compile(
-    r"AssertionError|AssertionFailedError|org\.opentest4j|junit\.framework\.AssertionFailedError|"
-    r"org\.mockito\.exceptions\.verification\.(?:WantedButNotInvoked|NeverWantedButInvoked|TooManyActualInvocations)|"
-    r"\bexpected\b|but was|wrong exception|Expected .*exception",
-    re.IGNORECASE,
+    r"(?:^|\.)(?:AssertionError|AssertionFailedError|ComparisonFailure|ArrayComparisonFailure|"
+    r"MultipleFailuresError|MockitoAssertionError)$|"
+    r"^org\.mockito\.exceptions\.verification\.(?:(?:junit|opentest4j)\.)?"
+    r"(?:WantedButNotInvoked|NeverWantedButInvoked|TooManyActualInvocations|"
+    r"TooFewActualInvocations|NoInteractionsWanted|VerificationInOrderFailure|ArgumentsAreDifferent)$",
 )
-STRICTNESS_FAILURE_RE = re.compile(
-    r"org\.mockito\.exceptions\.misusing\.(?:UnnecessaryStubbingException|PotentialStubbingProblem)|"
-    r"\b(?:UnnecessaryStubbingException|PotentialStubbingProblem)\b",
-    re.IGNORECASE,
+FAILURE_HEADER_RE = re.compile(
+    r'^\s*(?:\[ERROR\]\s*)?(?:(?:Exception in thread "[^"]+"\s+|Caused by:\s*))?'
+    r'([A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*)(?::|\s*$)',
+    re.MULTILINE,
+)
+JVM_CRASH_RE = re.compile(
+    r"^\s*#\s*(?:A fatal error has been detected by the Java Runtime Environment|"
+    r"SIGSEGV|SIGBUS|SIGILL|SIGFPE)|^\s*(?:Segmentation fault|Aborted)(?:\s|$)",
+    re.MULTILINE,
 )
 
 
@@ -306,31 +312,49 @@ def candidate_changes_enclosing_handler(source: str | None, offset: int | None, 
     return original_handlers[:1] != candidate_handlers[:1]
 
 
-def killed_status_from_execute_log(path_value: str | None, replacement_exception_type: str | None = None) -> tuple[str, str | None]:
-    if not path_value:
-        return "killed_incidentally", None
-    path = Path(path_value)
-    log_text = path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
-    if STRICTNESS_FAILURE_RE.search(log_text):
-        return "killed_incidentally", "mockito_strictness_failure"
-    if ORACLE_FAILURE_RE.search(log_text):
-        return "killed_by_oracle", "assertion_failure_or_assertion_library_signal"
-    java_class_message = re.search(r"Java class\.\s*(.*?)\s*(?:->\s*\[Help|\n|$)", log_text, flags=re.DOTALL)
-    if java_class_message:
-        message = java_class_message.group(1).strip()
-        throwable = re.search(r"\b([A-Za-z_$][\w$.]*(?:Exception|Error|Throwable))\b", message)
-        if throwable:
-            failure_type = throwable.group(1)
-            if exception_name_matches(failure_type, replacement_exception_type):
-                return "killed_by_oracle", f"mutated_exception_type_escaped:{failure_type}"
-            return "killed_incidentally", failure_type
-        if message:
-            return "killed_incidentally", message[:200]
-    throwable = re.search(r"\b([A-Za-z_$][\w$.]*(?:Exception|Error|Throwable))\b", log_text)
-    failure_type = throwable.group(1) if throwable else None
-    if exception_name_matches(failure_type, replacement_exception_type):
-        return "killed_by_oracle", f"mutated_exception_type_escaped:{failure_type}"
-    return "killed_incidentally", failure_type if failure_type else "non_assertion_test_failure"
+def killed_status_from_execute_log(
+    path_value: str | None,
+    replacement_exception_type: str | None = None,
+    *,
+    workdir: Path | None = None,
+    signature: str | None = None,
+    construct: str | None = None,
+    returncode: int | None = None,
+) -> tuple[str, str | None]:
+    """Classify observed assertion failures separately from runtime failures.
+
+    Legacy source-context arguments remain accepted for replay compatibility,
+    but neither source tracing nor the replacement exception type earns credit.
+    """
+    path = Path(path_value) if path_value else None
+    log_text = path.read_text(encoding="utf-8", errors="replace") if path and path.exists() else ""
+    failure_types = [
+        match.group(1) for match in FAILURE_HEADER_RE.finditer(log_text)
+    ]
+    for failure_type in failure_types:
+        if ORACLE_FAILURE_RE.search(failure_type):
+            return "killed_by_oracle", f"assertion_failure:{failure_type}"
+    if JVM_CRASH_RE.search(log_text):
+        return "killed_incidentally", "jvm_crash"
+    exit_code = re.search(r"Process Exit Code:\s*(-?\d+)", log_text)
+    process_code = int(exit_code.group(1)) if exit_code else returncode
+    if process_code is not None and (
+        process_code < 0 or process_code in {132, 134, 135, 136, 137, 138, 139}
+    ):
+        return "killed_incidentally", f"process_terminated:{process_code}"
+    for failure_type in reversed(failure_types):
+        if failure_type.startswith((
+            "org.apache.maven.", "org.codehaus.mojo.",
+            "org.apache.maven.surefire.",
+        )) or failure_type in {
+            "java.lang.reflect.InvocationTargetException",
+            "java.util.concurrent.ExecutionException",
+        }:
+            continue
+        if failure_type.endswith(("Exception", "Error", "Throwable")) or failure_type == "org.mockito.exceptions.misusing.PotentialStubbingProblem":
+            return "killed_incidentally", f"unhandled_exception:{failure_type}"
+    reason = "execute_log_unavailable" if not path or not path.exists() else "failure_type_unverified"
+    return "coverage_unverified", reason
 
 
 def return_type_category(return_type: str | None) -> str:
@@ -382,7 +406,7 @@ def run_generated_test(
             "compile_log": compile_result["log"],
         }
     if test_class:
-        exec_args = [mvn, "-q", f"-Dtest={test_class}"]
+        exec_args = [mvn, "-q", "-e", "-DtrimStackTrace=false", f"-Dtest={test_class}"]
         if collect_coverage:
             exec_args.append(f"-DargLine=-javaagent:{JACOCO_AGENT}=destfile=target/jacoco.exec")
         exec_args.append("test")
@@ -398,6 +422,7 @@ def run_generated_test(
         exec_args = [
             mvn,
             "-q",
+            "-e",
             "-Dexec.mainClass=benchmark.GeneratedSmokeTest",
             "-Dexec.classpathScope=test",
             EXEC_PLUGIN,
@@ -3181,12 +3206,10 @@ def collect_row(
                         collect_coverage=bool(mutant_meta.get("downstream_flow_risk")),
                     )
                     if result["status"] == "killed":
-                        replacement_exception = (
-                            mutant_meta.get("replacement_exception_type")
-                            if construct == "exception_behavior"
-                            else None
+                        status, reason = killed_status_from_execute_log(
+                            result.get("execute_log"),
+                            returncode=result.get("execute_returncode"),
                         )
-                        status, reason = killed_status_from_execute_log(result.get("execute_log"), replacement_exception)
                         result = {**result, "status": status, "kill_classification_reason": reason}
                     elif result["status"] == "survived" and mutant_meta.get("downstream_flow_risk"):
                         mutant_covered_lines = set(result.get("covered_lines") or [])

@@ -24,12 +24,15 @@ source workdirs, model calls, Maven, or mutation execution. Follow
 [the reproduction guide](../../../docs/reproduction.md) from the repository root.
 Rechecking the original classifications and mutations requires the separately
 archived source, tests, logs, and mutant evidence. The accompanying artifact distribution
-provides benchmark source, evaluated tests and a separate aligned-zero
-assertion-mutation rerun. These compact profiles retain the historical scores;
-they have not been replaced with aligned-rerun results. Historical PIT and
-extreme-condition/CFA evidence are not in those mutation ZIPs. See
+provides benchmark source, evaluated tests and matching v11 assertion-mutation
+evidence. The profiles use `custom_assertion_mutation_v11` with incidental kills
+scored zero. Recognized assertion and verification failures earn OS credit,
+while uncaught non-assertion exceptions and crashes do not. BVA, CFA, PIT,
+execution outcomes and failure classifications retain their recorded values.
+PIT and extreme-condition/CFA mutation logs are not in these ZIPs. See
 [data availability](../../../DATA_AVAILABILITY.md) for reproduction limits.
 
-`inventory.json` records configurations, row counts, source-profile hashes, and
-compressed release-profile hashes. Each configuration contains every task
-exactly once. The profiles preserve recorded scores and counts.
+`inventory.json` records configurations, row counts, collector settings, evidence
+bundle names, and compressed profile hashes. Matching compact profiles are also
+included in each cohort's mutation-evidence ZIP. Each configuration contains
+every task exactly once.

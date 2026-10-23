@@ -1,13 +1,33 @@
 {
-  "schema_version": 1,
-  "analysis_lineage": "pit-mutation-v11c-object-observability-broad",
+  "schema_version": 2,
+  "analysis_lineage": "os-v11-assertion-mediated",
+  "os_collection": {
+    "collector_version": "custom_assertion_mutation_v11",
+    "collector_sha256": "7eed7c22b20198ba5c3b53da44da6b6f9cddcb2509095e2d7c06b882ca942786",
+    "settings": {
+      "incidental_score": "zero",
+      "degenerate_null_score": "score",
+      "max_items_per_row": null,
+      "only_construct": [],
+      "only_mutant_variant": [],
+      "allow_opaque_null_interaction": false,
+      "allow_opaque_null_side_effect_sensitivity": false,
+      "include_confounded_side_effect_neutralization": false
+    },
+    "evidence_release": "v1.1.0-os-v11"
+  },
+  "preserved_non_os_evidence": {
+    "analysis_lineage": "pit-mutation-v11c-object-observability-broad",
+    "fields_unchanged": true
+  },
   "groups": {
     "treatment": {
       "rows": 14320,
       "skipped_rows": 0,
-      "source": "analysis/final-mixed-runs/assertion-strength/pit-mutation-v11c-object-observability-broad/treatment/blindspot_profiles.jsonl",
-      "source_sha256": "846dbe957439d08be64ce56686c44503dd7b01db6475d66c2919afb795b0813c",
-      "profile_sha256": "a3d958cb726980eaba1aeecf7ebe082de152b6f019dde85d352bb65976e6476d",
+      "source": "mutation-evidence-treatment-v11-zero.zip::profiles/blindspot_profiles.jsonl.gz",
+      "source_sha256": "5c494103069e1437fbfa06ec72d57976e1037e235e0ad918cac952b5f647dc39",
+      "profile_sha256": "5c494103069e1437fbfa06ec72d57976e1037e235e0ad918cac952b5f647dc39",
+      "preserved_non_os_baseline_sha256": "a3d958cb726980eaba1aeecf7ebe082de152b6f019dde85d352bb65976e6476d",
       "configurations": [
         {
           "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8",
@@ -93,10 +113,11 @@
     },
     "control": {
       "rows": 5600,
-      "skipped_rows": 700,
-      "source": "analysis/final-mixed-runs/assertion-strength/pit-mutation-v11c-object-observability-broad/control/blindspot_profiles.jsonl",
-      "source_sha256": "8d020ca31b04918c8713ddabe6d1d3602e088c6b945679746759e5e1f491d0dc",
-      "profile_sha256": "5ea63a54826369b607f9a4611ea511830dec94f49dc3a4c79e10ba656ec92316",
+      "skipped_rows": 0,
+      "source": "mutation-evidence-control-v11-zero.zip::profiles/blindspot_profiles.jsonl.gz",
+      "source_sha256": "947a7159a2eb021fb96f829a73420c9941fbf15e8b8ba4485fdd85675dc3eb3f",
+      "profile_sha256": "947a7159a2eb021fb96f829a73420c9941fbf15e8b8ba4485fdd85675dc3eb3f",
+      "preserved_non_os_baseline_sha256": "5ea63a54826369b607f9a4611ea511830dec94f49dc3a4c79e10ba656ec92316",
       "configurations": [
         {
           "model": "RedHatAI/gemma-4-31B-it-FP8-Dynamic",
