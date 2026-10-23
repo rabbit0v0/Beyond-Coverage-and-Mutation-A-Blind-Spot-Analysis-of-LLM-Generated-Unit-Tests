@@ -34,9 +34,9 @@ generated variants and then averages those obligation scores. Under this policy,
 from scoring. The collector reports `not_reached`, `not_generated`, `out_of_scope`,
 compile errors, and timeouts separately.
 
-The current collector records version `custom_assertion_mutation_v11`. OS measures
-assertion-mediated detection of return-value and exception-type mutations, whether
-the assertion observes the changed behavior directly or indirectly. A failed
+OS measures assertion-mediated detection of return-value and exception-type
+mutations, whether the assertion observes the changed behavior directly or
+indirectly. A failed
 Mockito call-count verification therefore counts as an oracle kill. Mockito
 strictness exceptions are runtime failures rather than assertion failures.
 

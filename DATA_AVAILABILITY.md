@@ -13,9 +13,10 @@ included in Git and can regenerate summary tables, eligibility counts, and
 treatment/control comparisons. Treatment has four models and four strategies
 (14,320 rows); control has GPT-5.4 and Gemma with four strategies (5,600 rows).
 Generated summaries are not tracked. Inventory hashes identify the profiles and
-their matching mutation-evidence bundles. OS uses `custom_assertion_mutation_v11`
+their matching mutation-evidence bundles. OS uses assertion-mutation evidence
 with incidental kills scored zero, while the recorded BVA and CFA values are
-preserved.
+preserved. The [inventory](analysis/final-mixed-runs/release/inventory.json)
+records collector identifiers and exact evidence-bundle filenames for provenance.
 
 The accompanying artifact distribution provides the following ZIPs and
 `SHA256SUMS`. After downloading all five ZIPs
@@ -28,10 +29,10 @@ The Java example runs independently. A DOI has not been assigned.
 | ObligBench | All 1,595 source projects, task records, manifests, provenance and licenses | `ObligBench.zip` |
 | Evaluated treatment tests | 14,320 records; generated tests, helpers, available production sources and build files | `evaluated-tests-treatment.zip` |
 | Evaluated control tests | 5,600 records; generated tests, helpers, available production sources and build files | `evaluated-tests-control.zip` |
-| Treatment assertion evidence | 14,320 v11 mutation records, referenced logs, tests, compact profiles and collector snapshots | `mutation-evidence-treatment-v11-zero.zip` |
-| Control assertion evidence | 5,600 v11 mutation records, referenced logs, tests, compact profiles and collector snapshots | `mutation-evidence-control-v11-zero.zip` |
+| Treatment assertion evidence | 14,320 mutation records, referenced logs, tests, compact profiles and collector snapshots | Treatment mutation-evidence ZIP identified in the inventory |
+| Control assertion evidence | 5,600 mutation records, referenced logs, tests, compact profiles and collector snapshots | Control mutation-evidence ZIP identified in the inventory |
 
-The mutation ZIPs contain the v11 assertion-mutation evidence used for the OS
+The mutation ZIPs contain the assertion-mutation evidence used for the OS
 scores in the tracked profiles. Recognized assertion and verification failures
 earn credit, while uncaught non-assertion exceptions and crashes receive zero.
 They do not contain PIT or extreme-condition/CFA mutation evidence. The profiles

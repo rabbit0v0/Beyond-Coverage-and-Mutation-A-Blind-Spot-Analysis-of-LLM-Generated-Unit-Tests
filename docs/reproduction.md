@@ -19,10 +19,11 @@ ObligBench tasks and archived run artifacts. See
 upstream licensing requirements. The bundles provide benchmark source and
 archived evaluated-test projects.
 
-The compact profiles contain v11 OS scores alongside the preserved BVA, CFA,
+The compact profiles contain OS scores alongside the preserved BVA, CFA,
 PIT and execution/failure results. Their matching mutation bundles contain
-assertion-mutation records and logs from `custom_assertion_mutation_v11` with
-incidental kills scored zero. Those bundles also include byte-identical copies
+assertion-mutation records and logs with incidental kills scored zero.
+Collector identifiers are recorded in the inventory for provenance.
+Those bundles also include byte-identical copies
 of the compact profiles. They do not contain PIT or extreme-condition/CFA
 mutation logs, so use the profiles to regenerate those recorded numeric results.
 

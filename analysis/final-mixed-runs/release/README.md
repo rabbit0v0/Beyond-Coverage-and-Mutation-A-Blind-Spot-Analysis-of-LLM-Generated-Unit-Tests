@@ -24,9 +24,9 @@ source workdirs, model calls, Maven, or mutation execution. Follow
 [the reproduction guide](../../../docs/reproduction.md) from the repository root.
 Rechecking the original classifications and mutations requires the separately
 archived source, tests, logs, and mutant evidence. The accompanying artifact distribution
-provides benchmark source, evaluated tests and matching v11 assertion-mutation
-evidence. The profiles use `custom_assertion_mutation_v11` with incidental kills
-scored zero. Recognized assertion and verification failures earn OS credit,
+provides benchmark source, evaluated tests and matching assertion-mutation
+evidence. Incidental kills are scored zero in the profiles.
+Recognized assertion and verification failures earn OS credit,
 while uncaught non-assertion exceptions and crashes do not. BVA, CFA, PIT,
 execution outcomes and failure classifications retain their recorded values.
 PIT and extreme-condition/CFA mutation logs are not in these ZIPs. See
